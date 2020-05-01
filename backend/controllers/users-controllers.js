@@ -65,6 +65,18 @@ const signup = async (req, res) => {
   res.status(201).json({userId: newUser.id, token});
 }
 
+const getUser = async (req, res) => {
+  let user;
+  try {
+    user = await User.findById(req.userId, '-password');
+  } catch(err) {
+    res.status(500).json({ msg: 'Fetching user failed, please try again.' });
+  }
+
+  res.status(200).json({ user });
+}
+
 module.exports = {
-  signup 
+  signup,
+  getUser
 }
