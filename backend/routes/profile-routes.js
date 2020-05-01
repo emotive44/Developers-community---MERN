@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('profile get route');
-});
+const auth = require('../middleware/check-auth');
+const profileControllers = require('../controllers/profile-controllers');
+
+router.get('/me', auth, profileControllers.getProfile);
 
 module.exports = router;

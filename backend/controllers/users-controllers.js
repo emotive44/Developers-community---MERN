@@ -73,6 +73,10 @@ const getUser = async (req, res) => {
     res.status(500).json({ msg: 'Fetching user failed, please try again.' });
   }
 
+  if(!user) {
+    res.status(404).json({ msg: 'User not found.' });
+  }
+
   res.status(200).json({ user });
 }
 
