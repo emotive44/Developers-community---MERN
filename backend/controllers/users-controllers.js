@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 
@@ -53,7 +54,15 @@ const signup = async (req, res) => {
     res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
   }
 
-  res.status(201).json({userId: newUser.id})
+  let token;
+  try {
+    token = jwt.sign({ userId: newUser.id }, 'supersecret', { expiresIn: '1h' });
+  } catch(err) {
+    console.error(err);
+    res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
+  }
+
+  res.status(201).json({userId: newUser.id, token});
 }
 
 module.exports = {
