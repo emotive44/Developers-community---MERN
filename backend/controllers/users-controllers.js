@@ -76,7 +76,52 @@ const getUser = async (req, res) => {
   res.status(200).json({ user });
 }
 
+const login = async (req, res) => {
+  const errors = validationResult(req);
+  
+  if(!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email, password } = req.body;
+  
+  let existUser;
+  try {
+    existUser = await User.findOne({email});
+  } catch(err) {
+    console.error(err);
+    res.status(500).json({ errors: [{ msg: 'Logging up failed, please try again.' }] });
+  }
+
+  if(!existUser) {
+    res.status(401).json({ errors: [{ msg: 'Invalid credentials, could not log you.' }] });
+  }
+
+  let isValidPassword = false;
+  try {
+    isValidPassword = await bcrypt.compare(password, existUser.password);
+  } catch(err) {
+    console.error(err);
+    res.status(500).json({ errors: [{ msg: 'Could not log you, check your credentials.' }] });
+  }
+
+  if(!isValidPassword) {
+    res.status(401).json({ errors: [{ msg: 'Invalid password, could not log you.' }] });
+  }
+
+  let token;
+  try {
+    token = jwt.sign({ userId: existUser.id }, 'supersecret', { expiresIn: '1h' });
+  } catch(err) {
+    console.error(err);
+    res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
+  }
+
+  res.json({userId: existUser.id, token});
+}
+
 module.exports = {
   signup,
-  getUser
+  getUser,
+  login
 }

@@ -17,4 +17,12 @@ router.post('/signup',
   usersControllers.signup
 );
 
+router.post('/login',
+  [
+    check('email', 'Please include a valid email.').normalizeEmail().isEmail(),
+    check('password', 'Please enter password.')
+  ],
+  usersControllers.login
+)
+
 module.exports = router;
