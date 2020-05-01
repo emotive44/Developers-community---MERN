@@ -1,8 +1,16 @@
 const express = require('express');
 const router = express.Router();
+const { check } = require('express-validator');
 
-router.get('/', (req, res) => {
-  res.send('user get route');
-});
+const usersControllers = require('../controllers/users-controllers');
+
+router.post('/signup',
+  [
+    check('name', 'Name is required.').not().isEmpty(),
+    check('email', 'Please include a valid email').normalizeEmail().isEmail(),
+    check('password', 'Please enter password with least 6 symbols').isLength({min: 6})
+  ],
+  usersControllers.signup
+);
 
 module.exports = router;
