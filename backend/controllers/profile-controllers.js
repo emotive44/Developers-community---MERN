@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const axios = require('axios');
 const { validationResult } = require('express-validator');
 
 const Profile = require('../models/profile');
@@ -293,6 +294,26 @@ const deleteProfileEducation = async (req, res) => {
   res.status(200).json({ msg: 'Deleted education.' });
 }
 
+const getGithubRepos = async (req, res) => {
+  const clientId = 'ea7f618bbcf6c3678417';   //// this should be in config file
+  const clientSecret = '095eb7260af90a5c43ef56a9b74d269f3658e4df'; ////
+  
+  try {
+    const url = `https://api.github.com/users/${
+      req.params.username
+    }/repos?per_page=5&sort=created:asc&client_id=${
+      clientId
+    }&client_secret=${clientSecret}`;
+      
+    const respone = await axios.get(url, { headers: {'user-agent': 'node.js' }})
+    const { data } = await respone;
+    
+    res.json({ repos: data })
+  } catch (error) {
+    res.status(500).json({ msg: 'Fetching github repos failed, please try again.' });
+  }
+}
+
 module.exports = {
   getProfile,
   createProfile,
@@ -302,5 +323,6 @@ module.exports = {
   AddProfileExperience,
   deleteProfileExperience,
   AddProfileEducation,
-  deleteProfileEducation
+  deleteProfileEducation,
+  getGithubRepos
 }

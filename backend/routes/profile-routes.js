@@ -11,6 +11,8 @@ router.get('/', profileControllers.getAllProfiles);
 
 router.get('/user/:userId', profileControllers.getProfileByUserId);
 
+router.get('/github/:username', profileControllers.getGithubRepos);
+
 router.post('/',
   [
     check('status', 'Status is required.').not().isEmpty(),
