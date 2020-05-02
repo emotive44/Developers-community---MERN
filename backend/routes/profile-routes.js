@@ -30,6 +30,19 @@ router.post('/experience',
   profileControllers.AddProfileExperience
 );
 
+router.post('/education',
+  [
+    check('school', 'School is required.').not().isEmpty(),
+    check('degree', 'Degree is required.').not().isEmpty(),
+    check('fieldOfStudy', 'Field of study is required.').not().isEmpty(),
+    check('from', 'From date is required.').not().isEmpty(),
+  ],
+  auth,
+  profileControllers.AddProfileEducation
+);
+
+router.delete('/education/:educId', auth, profileControllers.deleteProfileEducation);
+
 router.delete('/experience/:expId', auth, profileControllers.deleteProfileExperience);
 
 router.delete('/', auth, profileControllers.deleteProfile);

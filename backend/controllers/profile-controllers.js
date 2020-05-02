@@ -220,6 +220,79 @@ const deleteProfileExperience = async (req, res) => {
   res.status(200).json({ msg: 'Deleted experience.' });
 }
 
+const AddProfileEducation = async (req, res) => {
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() })
+  }
+
+  const {
+    to,
+    from,
+    school,
+    degree,
+    current,
+    description,
+    fieldOfStudy
+  } = req.body;
+
+  const newEduc = {
+    to,
+    from,
+    school,
+    degree,
+    current,
+    description,
+    fieldOfStudy
+  }
+
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: req.userId});
+  } catch(err) {
+    res.status(500).json({ msg: 'Add education failed, please try again.'});
+  }
+
+  if(!profile) {
+    res.status(404).json({ msg: 'Profile not found.'});
+  }
+
+  try {
+    profile.education.unshift(newEduc);
+    await profile.save();
+  } catch(err) {
+    res.status(500).json({ msg: 'Add education failed, please try again.'});
+  }
+
+  res.status(201).json({ profile });
+}
+
+const deleteProfileEducation = async (req, res) => {
+  const educId = req.params.educId;
+
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: req.userId });
+  } catch(err) {
+    res.status(500).json({ msg: 'Delete education failed, please try again' });
+  }
+
+  if(!profile) {
+    res.status(404).json({ msg: 'Could not found profile' });
+  }
+
+  try {
+    const index = profile.education.map(x => x.id).indexOf(educId);
+    profile.education.splice(index, 1);
+    
+    await profile.save();
+  } catch (err) {
+    res.status(500).json({ msg: 'Delete education failed, please try again.' });
+  }
+  res.status(200).json({ msg: 'Deleted education.' });
+}
+
 module.exports = {
   getProfile,
   createProfile,
@@ -228,4 +301,6 @@ module.exports = {
   deleteProfile,
   AddProfileExperience,
   deleteProfileExperience,
+  AddProfileEducation,
+  deleteProfileEducation
 }
