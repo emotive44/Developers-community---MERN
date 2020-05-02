@@ -20,6 +20,16 @@ router.post('/',
   profileControllers.createProfile
 );
 
+router.post('/experience',
+  [
+    check('title', 'Title is required.').not().isEmpty(),
+    check('company', 'Company is required.').not().isEmpty(),
+    check('from', 'From date is required.').not().isEmpty(),
+  ],
+  auth, 
+  profileControllers.AddProfileExperience
+);
+
 router.delete('/', auth, profileControllers.deleteProfile);
 
 module.exports = router;

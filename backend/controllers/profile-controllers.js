@@ -146,10 +146,59 @@ const deleteProfile = async (req, res, next) => {
   res.status(200).json({msg: 'Deleted profile.'});
 }
 
+const AddProfileExperience = async (req, res) => {
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() })
+  }
+
+  const {
+    to,
+    from,
+    title,
+    company,
+    current,
+    location,
+    description
+  } = req.body;
+
+  const newExp = {
+    to,
+    from,
+    title,
+    company,
+    current,
+    location,
+    description
+  }
+
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: req.userId});
+  } catch(err) {
+    res.status(500).json({ msg: 'Add experience failed, please try again.'});
+  }
+
+  if(!profile) {
+    res.status(404).json({ msg: 'Profile not found.'});
+  }
+
+  try {
+    profile.experience.unshift(newExp);
+    await profile.save();
+  } catch(err) {
+    res.status(500).json({ msg: 'Add experience failed, please try again.'});
+  }
+
+  res.status(201).json({ profile });
+}
+
 module.exports = {
   getProfile,
   createProfile,
   getAllProfiles,
   getProfileByUserId,
-  deleteProfile
+  deleteProfile,
+  AddProfileExperience,
 }
