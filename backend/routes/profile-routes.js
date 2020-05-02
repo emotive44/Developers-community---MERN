@@ -20,4 +20,6 @@ router.post('/',
   profileControllers.createProfile
 );
 
+router.delete('/', auth, profileControllers.deleteProfile);
+
 module.exports = router;

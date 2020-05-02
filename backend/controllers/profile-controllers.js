@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const { validationResult } = require('express-validator');
 
 const Profile = require('../models/profile');
@@ -108,7 +109,7 @@ const getProfileByUserId = async (req, res, next) => {
   try {
     profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
   } catch(err) {
-    return next(new Error('Fetching profile failed, please try again.'))
+    res.status(500).json({msg: 'Fetching profile, failed, please try again.'});
   }
 
   if(!profile) {
@@ -118,9 +119,37 @@ const getProfileByUserId = async (req, res, next) => {
   res.status(200).json({ profile });
 }
 
+const deleteProfile = async (req, res, next) => {
+  const userId = req.userId;
+  
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: userId });
+  } catch(err) {
+    res.status(500).json({msg: 'Deleting failed, please try again.'});
+  }
+
+  if(!profile) {
+    res.status(404).json({msg: 'Could not find profile for this userId'});
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await profile.remove({ session: sess });
+    await User.findByIdAndRemove(userId);
+    sess.commitTransaction();
+  } catch(err) {
+    res.status(500).json({msg: 'Deleting failed, please try again.'});
+  }
+
+  res.status(200).json({msg: 'Deleted profile.'});
+}
+
 module.exports = {
   getProfile,
   createProfile,
   getAllProfiles,
-  getProfileByUserId
+  getProfileByUserId,
+  deleteProfile
 }
