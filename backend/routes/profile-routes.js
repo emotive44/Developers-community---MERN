@@ -7,6 +7,8 @@ const profileControllers = require('../controllers/profile-controllers');
 
 router.get('/me', auth, profileControllers.getProfile);
 
+router.get('/', profileControllers.getAllProfiles);
+
 router.post('/',
   [
     check('status', 'Status is required.').not().isEmpty(),
