@@ -101,8 +101,26 @@ const getAllProfiles = async (req, res) => {
   res.status(200).json({ profiles });
 }
 
+const getProfileByUserId = async (req, res, next) => {
+  const userId = req.params.userId;
+
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
+  } catch(err) {
+    return next(new Error('Fetching profile failed, please try again.'))
+  }
+
+  if(!profile) {
+    res.status(404).json({ msg: 'Could not found profile.' });
+  }
+
+  res.status(200).json({ profile });
+}
+
 module.exports = {
   getProfile,
   createProfile,
   getAllProfiles,
+  getProfileByUserId
 }

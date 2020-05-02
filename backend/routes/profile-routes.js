@@ -9,6 +9,8 @@ router.get('/me', auth, profileControllers.getProfile);
 
 router.get('/', profileControllers.getAllProfiles);
 
+router.get('/user/:userId', profileControllers.getProfileByUserId);
+
 router.post('/',
   [
     check('status', 'Status is required.').not().isEmpty(),
