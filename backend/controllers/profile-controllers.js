@@ -194,6 +194,32 @@ const AddProfileExperience = async (req, res) => {
   res.status(201).json({ profile });
 }
 
+const deleteProfileExperience = async (req, res) => {
+  const expId = req.params.expId;
+
+  let profile;
+  try {
+    profile = await Profile.findOne({ user: req.userId });
+  } catch(err) {
+    res.status(500).json({ msg: 'Delete experience failed, please try again' });
+  }
+
+  if(!profile) {
+    res.status(404).json({ msg: 'Could not found profile' });
+  }
+
+  try {
+    const index = profile.experience.map(x => x.id).indexOf(expId);
+    profile.experience.splice(index, 1);
+    
+    await profile.save();
+  } catch (err) {
+    console.log(1)
+    res.status(500).json({ msg: 'Delete experience failed, please try again.' });
+  }
+  res.status(200).json({ msg: 'Deleted experience.' });
+}
+
 module.exports = {
   getProfile,
   createProfile,
@@ -201,4 +227,5 @@ module.exports = {
   getProfileByUserId,
   deleteProfile,
   AddProfileExperience,
+  deleteProfileExperience,
 }

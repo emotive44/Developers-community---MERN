@@ -30,6 +30,8 @@ router.post('/experience',
   profileControllers.AddProfileExperience
 );
 
+router.delete('/experience/:expId', auth, profileControllers.deleteProfileExperience);
+
 router.delete('/', auth, profileControllers.deleteProfile);
 
 module.exports = router;
