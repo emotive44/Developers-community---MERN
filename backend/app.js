@@ -21,7 +21,7 @@ mongoose
     'mongodb+srv://marko:123@cluster0-msllf.mongodb.net/test?retryWrites=true&w=majority',
     {
       useNewUrlParser: true,
-      useFindAndModify: true,
+      useFindAndModify: false,
       useUnifiedTopology: true
     }
   )
