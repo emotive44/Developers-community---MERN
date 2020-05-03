@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 
-const signup = async (req, res) => {
+const signup = async (req, res, next) => {
   const errors = validationResult(req);
   
   if(!errors.isEmpty()) {
@@ -25,7 +25,7 @@ const signup = async (req, res) => {
     existUser = await User.findOne({email});
   } catch(err) {
     console.error(err);
-    res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
+    next(new Error('Signing up failed, please try again.'));
   }
 
   if(existUser) {
@@ -65,12 +65,12 @@ const signup = async (req, res) => {
   res.status(201).json({userId: newUser.id, token});
 }
 
-const getUser = async (req, res) => {
+const getUser = async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.userId, '-password');
   } catch(err) {
-    res.status(500).json({ msg: 'Fetching user failed, please try again.' });
+    next(new Error('Fetching user failed, please try again.'));
   }
 
   if(!user) {
@@ -80,7 +80,7 @@ const getUser = async (req, res) => {
   res.status(200).json({ user });
 }
 
-const login = async (req, res) => {
+const login = async (req, res, next) => {
   const errors = validationResult(req);
   
   if(!errors.isEmpty()) {
@@ -94,7 +94,7 @@ const login = async (req, res) => {
     existUser = await User.findOne({email});
   } catch(err) {
     console.error(err);
-    res.status(500).json({ errors: [{ msg: 'Logging up failed, please try again.' }] });
+    next(new Error('Logging up failed, please try again.'));
   }
 
   if(!existUser) {

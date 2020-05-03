@@ -4,7 +4,7 @@ const User = require('../models/user');
 const Post = require('../models/post');
 
 
-const createPost = async (req, res) => {
+const createPost = async (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
@@ -15,7 +15,7 @@ const createPost = async (req, res) => {
   try { 
     user = await User.findById(req.userId, '-password');
   } catch(err) {
-    res.status(500).json({ msg: 'Create post failed, please try again.' });
+    next(new Error('Create post failed, please try again'));
   }
 
   if(!user) {
@@ -38,12 +38,12 @@ const createPost = async (req, res) => {
   res.status(201).json({ post: newPost });
 }
 
-const getPosts = async (req, res) => {
+const getPosts = async (req, res, next) => {
   let posts;
   try {
     posts = await Post.find().sort({ date: -1 });
   } catch (error) {
-    res.status(500).json({ msg: 'Fetching posts failed, please try again.' });
+    next(new Error('Fetching posts failed, please try again.'));
   }
 
   if(!posts) {
@@ -58,7 +58,7 @@ const getPostById = async (req, res, next) => {
   try {
     post = await Post.findById(req.params.postId);
   } catch(err) {
-    res.status(500).json({ msg: 'Fetching post failed, please try again.' });
+    next(new Error('Fetching post failed, please try again.'));
   }
   
   if(!post) {

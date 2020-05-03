@@ -5,7 +5,7 @@ const { validationResult } = require('express-validator');
 const Profile = require('../models/profile');
 const User = require('../models/user');
 
-const getProfile = async (req, res) => {
+const getProfile = async (req, res, next) => {
   let profile;
   try { 
     profile = await Profile
@@ -13,7 +13,7 @@ const getProfile = async (req, res) => {
       .populate('user', ['name', 'avatar']);
     
   } catch(err) {
-    res.status(500).json({ msg: 'Fetching profile failed, please try again.' });
+    next(new Error('Fetching profile failed, please try again.'));
   }
 
   if(!profile) {
@@ -88,12 +88,12 @@ const createProfile = async (req, res) => {
   }
 }
 
-const getAllProfiles = async (req, res) => {
+const getAllProfiles = async (req, res, next) => {
   let profiles;
   try {
     profiles = await Profile.find().populate('user', ['name', 'avatar']);
   } catch(err) {
-    res.status(500).json({msg: 'Fetching profiles, failed, please try again.'});
+    next(new Error('Fetching profiles, failed, please try again.'));
   }
 
   if(!profiles) {
@@ -110,7 +110,7 @@ const getProfileByUserId = async (req, res, next) => {
   try {
     profile = await Profile.findOne({ user: userId }).populate('user', ['name', 'avatar']);
   } catch(err) {
-    res.status(500).json({msg: 'Fetching profile, failed, please try again.'});
+    next(new Error('Fetching profile, failed, please try again.'));
   }
 
   if(!profile) {
@@ -127,7 +127,7 @@ const deleteProfile = async (req, res, next) => {
   try {
     profile = await Profile.findOne({ user: userId });
   } catch(err) {
-    res.status(500).json({msg: 'Deleting failed, please try again.'});
+    next(new Error('Deleting failed, please try again.'));
   }
 
   if(!profile) {
@@ -147,7 +147,7 @@ const deleteProfile = async (req, res, next) => {
   res.status(200).json({msg: 'Deleted profile.'});
 }
 
-const AddProfileExperience = async (req, res) => {
+const AddProfileExperience = async (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
@@ -178,7 +178,7 @@ const AddProfileExperience = async (req, res) => {
   try {
     profile = await Profile.findOne({ user: req.userId});
   } catch(err) {
-    res.status(500).json({ msg: 'Add experience failed, please try again.'});
+    next(new Error('Add experience failed, please try again.'));
   }
 
   if(!profile) {
@@ -195,14 +195,14 @@ const AddProfileExperience = async (req, res) => {
   res.status(201).json({ profile });
 }
 
-const deleteProfileExperience = async (req, res) => {
+const deleteProfileExperience = async (req, res, next) => {
   const expId = req.params.expId;
 
   let profile;
   try {
     profile = await Profile.findOne({ user: req.userId });
   } catch(err) {
-    res.status(500).json({ msg: 'Delete experience failed, please try again' });
+    next(new Error('Delete experience failed, please try again.'));
   }
 
   if(!profile) {
@@ -221,7 +221,7 @@ const deleteProfileExperience = async (req, res) => {
   res.status(200).json({ msg: 'Deleted experience.' });
 }
 
-const AddProfileEducation = async (req, res) => {
+const AddProfileEducation = async (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
@@ -252,7 +252,7 @@ const AddProfileEducation = async (req, res) => {
   try {
     profile = await Profile.findOne({ user: req.userId});
   } catch(err) {
-    res.status(500).json({ msg: 'Add education failed, please try again.'});
+    next(new Error('Add education failed, please try again.'));
   }
 
   if(!profile) {
@@ -269,14 +269,14 @@ const AddProfileEducation = async (req, res) => {
   res.status(201).json({ profile });
 }
 
-const deleteProfileEducation = async (req, res) => {
+const deleteProfileEducation = async (req, res, next) => {
   const educId = req.params.educId;
 
   let profile;
   try {
     profile = await Profile.findOne({ user: req.userId });
   } catch(err) {
-    res.status(500).json({ msg: 'Delete education failed, please try again' });
+    next(new Error('Delete education failed, please try again'));
   }
 
   if(!profile) {
