@@ -10,7 +10,7 @@ const signup = async (req, res, next) => {
   const errors = validationResult(req);
   
   if(!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { name, email, password } = req.body;
@@ -29,7 +29,7 @@ const signup = async (req, res, next) => {
   }
 
   if(existUser) {
-    res.status(422).json({ errors: [{ msg: 'User already exist, try with new data' }] });
+    return res.status(422).json({ errors: [{ msg: 'User already exist, try with new data' }] });
   }
 
   let hashPassword;
@@ -37,7 +37,7 @@ const signup = async (req, res, next) => {
     hashPassword = await bcrypt.hash(password, 12);
   } catch(err) {
     console.error(err);
-    res.status(500).json({ errors: [{ msg: 'Could not create a user, please try again.' }] });
+    return res.status(500).json({ errors: [{ msg: 'Could not create a user, please try again.' }] });
   }
 
   const newUser = new User({
@@ -59,7 +59,7 @@ const signup = async (req, res, next) => {
     token = jwt.sign({ userId: newUser.id }, 'supersecret', { expiresIn: '1h' });
   } catch(err) {
     console.error(err);
-    res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
+    return res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
   }
 
   res.status(201).json({userId: newUser.id, token});
@@ -74,7 +74,7 @@ const getUser = async (req, res, next) => {
   }
 
   if(!user) {
-    res.status(404).json({ msg: 'User not found.' });
+    return res.status(404).json({ msg: 'User not found.' });
   }
 
   res.status(200).json({ user });
@@ -84,7 +84,7 @@ const login = async (req, res, next) => {
   const errors = validationResult(req);
   
   if(!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const { email, password } = req.body;
@@ -98,7 +98,7 @@ const login = async (req, res, next) => {
   }
 
   if(!existUser) {
-    res.status(401).json({ errors: [{ msg: 'Invalid credentials, could not log you.' }] });
+    return res.status(401).json({ errors: [{ msg: 'Invalid credentials, could not log you.' }] });
   }
 
   let isValidPassword = false;
@@ -110,7 +110,7 @@ const login = async (req, res, next) => {
   }
 
   if(!isValidPassword) {
-    res.status(401).json({ errors: [{ msg: 'Invalid password, could not log you.' }] });
+    return res.status(401).json({ errors: [{ msg: 'Invalid password, could not log you.' }] });
   }
 
   let token;
@@ -118,7 +118,7 @@ const login = async (req, res, next) => {
     token = jwt.sign({ userId: existUser.id }, 'supersecret', { expiresIn: '1h' });
   } catch(err) {
     console.error(err);
-    res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
+    return res.status(500).json({ errors: [{ msg: 'Signing up failed, please try again.' }] });
   }
 
   res.json({userId: existUser.id, token});

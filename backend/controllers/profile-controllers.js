@@ -17,7 +17,7 @@ const getProfile = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Profile not found.' });
+    return res.status(404).json({ msg: 'Profile not found.' });
   }
 
   res.status(200).json({ profile });
@@ -27,7 +27,7 @@ const createProfile = async (req, res) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({ errors: errors.array() });
   }
 
   const {
@@ -97,7 +97,7 @@ const getAllProfiles = async (req, res, next) => {
   }
 
   if(!profiles) {
-    res.status(404).json({msg: 'Could not found profiles'});
+    return res.status(404).json({msg: 'Could not found profiles'});
   }
 
   res.status(200).json({ profiles });
@@ -114,7 +114,7 @@ const getProfileByUserId = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Could not found profile.' });
+    return res.status(404).json({ msg: 'Could not found profile.' });
   }
 
   res.status(200).json({ profile });
@@ -131,7 +131,7 @@ const deleteProfile = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({msg: 'Could not find profile for this userId'});
+    return res.status(404).json({msg: 'Could not find profile for this userId'});
   }
 
   try {
@@ -151,7 +151,7 @@ const AddProfileExperience = async (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() })
+    return res.status(400).json({ errors: errors.array() })
   }
 
   const {
@@ -182,7 +182,7 @@ const AddProfileExperience = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Profile not found.'});
+    return res.status(404).json({ msg: 'Profile not found.'});
   }
 
   try {
@@ -206,7 +206,7 @@ const deleteProfileExperience = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Could not found profile' });
+    return res.status(404).json({ msg: 'Could not found profile' });
   }
 
   try {
@@ -215,9 +215,9 @@ const deleteProfileExperience = async (req, res, next) => {
     
     await profile.save();
   } catch (err) {
-    console.log(1)
     res.status(500).json({ msg: 'Delete experience failed, please try again.' });
   }
+
   res.status(200).json({ msg: 'Deleted experience.' });
 }
 
@@ -225,7 +225,7 @@ const AddProfileEducation = async (req, res, next) => {
   const errors = validationResult(req);
 
   if(!errors.isEmpty()) {
-    res.status(400).json({ errors: errors.array() })
+    return res.status(400).json({ errors: errors.array() })
   }
 
   const {
@@ -256,7 +256,7 @@ const AddProfileEducation = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Profile not found.'});
+    return res.status(404).json({ msg: 'Profile not found.'});
   }
 
   try {
@@ -280,7 +280,7 @@ const deleteProfileEducation = async (req, res, next) => {
   }
 
   if(!profile) {
-    res.status(404).json({ msg: 'Could not found profile' });
+    return res.status(404).json({ msg: 'Could not found profile' });
   }
 
   try {
