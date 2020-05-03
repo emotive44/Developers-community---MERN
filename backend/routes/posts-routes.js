@@ -1,8 +1,16 @@
 const express = require('express');
+const { check } = require('express-validator');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('post get route');
-});
+const auth = require('../middleware/check-auth');
+const postControllers = require('../controllers/post-controllers');
+
+
+router.post('/', 
+  auth,
+  [
+    check('text', 'Text is required.').not().isEmpty()
+  ], 
+  postControllers.createPost);
 
 module.exports = router;
