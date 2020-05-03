@@ -93,9 +93,87 @@ const deletePost = async (req, res, next) => {
   res.status(200).json({ msg: 'Deleted a post.' });
 }
 
+const likePost = async (req, res, next) => {
+  let existUser;
+  try {
+    existUser = await User.findById(req.userId);
+  } catch (error) {
+    next(new Error('Like post failed, please try again.'));
+  }
+
+  if(!existUser) {
+    return res.status(404).json({ msg: 'Like post failed, user is not found' });
+  }
+
+  let post;
+  try {
+    post = await Post.findById(req.params.postId);
+  } catch (error) {
+    next(new Error('Like post failed, please try again.'));
+  }
+
+  if(!post) {
+    return res.status(404).json({ msg: 'Like post failed, post is not found' });
+  }
+
+  try {
+    const isLiked = post.likes.map(like => like.user).indexOf(existUser.id);
+    if(isLiked !== -1) {
+      return res.status(400).json({ msg: 'You alredy liked a post' });
+    }
+
+    post.likes.unshift({ user: existUser.id });
+    await post.save();
+  } catch (error) {
+    next(new Error('Like post failed, please try again.'));
+  }
+
+  res.status(201).json({ msg: 'You like a post.' });
+}
+
+const unlikePost = async (req, res, next) => {
+  let existUser;
+  try {
+    existUser = await User.findById(req.userId);
+  } catch (error) {
+    next(new Error('Unlike post failed, please try again.'));
+  }
+
+  if(!existUser) {
+    return res.status(404).json({ msg: 'Unlike post failed, user is not found' });
+  }
+
+  let post;
+  try {
+    post = await Post.findById(req.params.postId);
+  } catch (error) {
+    next(new Error('Unlike post failed, please try again.'));
+  }
+
+  if(!post) {
+    return res.status(404).json({ msg: 'Unlike post failed, post is not found' });
+  }
+
+  try {
+    const isLiked = post.likes.map(like => like.user).indexOf(existUser.id);
+    if(isLiked === -1) {
+      return res.status(400).json({ msg: 'You alredy unliked a post' });
+    }
+    
+    post.likes = post.likes.filter(like => like.user.toString() !== existUser.id);
+    await post.save();
+  } catch (error) {
+    next(new Error('Unlike post failed, please try again.'));
+  }
+
+  res.status(201).json({ msg: 'You unlike a post.' });
+}
+
 module.exports = {
   createPost,
   getPosts,
   getPostById,
   deletePost,
+  likePost,
+  unlikePost,
 }

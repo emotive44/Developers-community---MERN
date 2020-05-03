@@ -20,4 +20,8 @@ router.get('/:postId', auth, postControllers.getPostById);
 
 router.delete('/:postId', auth, postControllers.deletePost);
 
+router.put('/likes/:postId', auth, postControllers.likePost);
+
+router.put('/unlike/:postId', auth, postControllers.unlikePost);
+
 module.exports = router;
