@@ -11,6 +11,11 @@ router.post('/',
   [
     check('text', 'Text is required.').not().isEmpty()
   ], 
-  postControllers.createPost);
+  postControllers.createPost
+);
+
+router.get('/', auth, postControllers.getPosts);
+
+router.get('/:postId', auth, postControllers.getPostById);
 
 module.exports = router;
