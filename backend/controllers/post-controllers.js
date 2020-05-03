@@ -169,6 +169,96 @@ const unlikePost = async (req, res, next) => {
   res.status(201).json({ msg: 'You unlike a post.' });
 }
 
+const createComment = async (req, res, next) => {
+  const errors = validationResult(req);
+
+  if(!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  let user;
+  try { 
+    user = await User.findById(req.userId, '-password');
+  } catch(err) {
+    next(new Error('Create comment failed, please try again'));
+  }
+
+  if(!user) {
+    return res.status(404).json({ msg: 'Create comment failed, user is not found.' });
+  }
+
+  let post;
+  try { 
+    post = await Post.findById(req.params.postId);
+  } catch(err) {
+    next(new Error('Create comment failed, please try again'));
+  }
+
+  if(!post) {
+    return res.status(404).json({ msg: 'Create comment failed, post is not found.' });
+  }
+
+  const comment = {
+    user: req.userId,
+    text: req.body.text,
+    name: req.body.name,
+    date: req.body.date,
+    avatar: req.body.avatar,
+  }
+
+  try {
+    post.comments.unshift(comment);
+    await post.save();
+  } catch (error) {
+    next(new Error('Create comment failed, please try again'));
+  }
+
+  res.status(201).json({ msg: 'You create a comment.'});
+}
+
+const deleteComment = async (req, res, next) => {
+  let user;
+  try { 
+    user = await User.findById(req.userId, '-password');
+  } catch(err) {
+    next(new Error('Delete comment failed, please try again'));
+  }
+
+  if(!user) {
+    return res.status(404).json({ msg: 'Delete comment failed, user is not found.' });
+  }
+
+  let post;
+  try { 
+    post = await Post.findById(req.params.postId);
+  } catch(err) {
+    next(new Error('Detele comment failed, please try again'));
+  }
+
+  if(!post) {
+    return res.status(404).json({ msg: 'Delete comment failed, post is not found.' });
+  }
+
+  try {
+    const comment = post.comments.find(comment => comment.id.toString() === req.params.commentId);
+    if(!comment) {
+      return res.status(404).json({ msg: 'Comment does not exist.' });
+    }
+
+    if(comment.user.toString() !== req.userId) {
+      return res.status(401).json({ msg: 'You are not authorize to delete this comment' });
+    }
+    
+    post.comments = post.comments.filter(comment => comment.id.toString() !== req.params.commentId);
+    await post.save();
+
+  } catch (error) {
+    next(new Error('Detele comment failed, please try again'));
+  }
+
+  res.status(200).json({ msg: 'You delete comment' });
+}
+
 module.exports = {
   createPost,
   getPosts,
@@ -176,4 +266,6 @@ module.exports = {
   deletePost,
   likePost,
   unlikePost,
+  createComment,
+  deleteComment
 }
