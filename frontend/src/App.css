@@ -77,7 +77,6 @@ img {
   outline: none;
 }
 
-
 .btn-primary,
 .bg-primary,
 .badge-primary,
@@ -85,3 +84,12 @@ img {
   background: var(--primary-color);
   color: #fff;
 }
+
+.btn-dark,
+.bg-dark,
+.badge-dark,
+.alert-dark {
+  background: var(--dark-color);
+  color: #fff;
+}
+
