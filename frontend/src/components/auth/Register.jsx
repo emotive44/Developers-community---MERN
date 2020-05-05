@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import './Register.css';
 
 const Register = () => {
@@ -16,14 +17,26 @@ const Register = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
-  const registerHandler = e => {
+  const registerHandler = async e => {
     e.preventDefault();
     if(password !== password2) {
       console.log('password do not match.');
       return;
     }
-    
-    console.log(formData)
+
+    try {
+      const newUser = { name, email, password };
+      console.log(newUser)
+      const config = {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }
+      const body = JSON.stringify(newUser);
+
+      const res = await axios.post('http://localhost:5000/api/users/signup', body, config);
+      console.log(res.data);
+    } catch(err) {}
   }
 
   return (
