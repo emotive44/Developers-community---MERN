@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './Register.css';
+import './LoginRegister.css';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -93,7 +93,7 @@ const Register = () => {
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
       <p className="my-1">
-        Already have an account? <Link to='/'>Sign In</Link>
+        Already have an account? <Link to='/login'>Sign In</Link>
       </p>
     </section>
   );
