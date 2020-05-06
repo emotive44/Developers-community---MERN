@@ -9,18 +9,22 @@ import Landing from './components/common/Landing';
 import NavBar from './components/common/NavBar';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Alert from './components/common/Alert';
 
 
 const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <Route exact path='/' component={Landing}/>
         <NavBar />
-        <Switch>
-          <Route exact path='/' component={Landing}/>
-          <Route path='/login' component={Login}/>
-          <Route path='/register' component={Register}/>
-        </Switch>
+        <section className="container">
+          <Alert />
+          <Switch>
+            <Route path='/login' component={Login}/>
+            <Route path='/register' component={Register}/>
+          </Switch>
+        </section>
       </Router>
     </Provider>
   );

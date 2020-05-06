@@ -1,0 +1,37 @@
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: var(--light-color);
+  color: #333;
+  animation: cssAnimation 5s forwards;
+}
+
+@keyframes cssAnimation {
+  0%    { opacity: 1; }
+  25%   { opacity: 0.7; }
+  50%   { opacity: 0.5; }
+  75%   { opacity: 0.3; }
+  100%  { opacity: 0; }
+}
+
+.alert-light {
+  background: var(--light-color);
+  color: #333;
+}
+
+.alert-danger {
+  background: var(--danger-color);
+  color: #fff;
+}
+
+.alert-success {
+  background: var(--success-color);
+  color: #fff;
+}
+
+.alert-white {
+  background: #fff;
+  color: #333;
+  border: #ccc solid 1px;
+}
