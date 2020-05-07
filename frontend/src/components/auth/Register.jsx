@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
-import axios from 'axios';
 import './LoginRegister.css';
 
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
 const Register = (props) => {
   const [formData, setFormData] = useState({
@@ -28,21 +28,8 @@ const Register = (props) => {
       props.setAlert('Password do not match.', 'danger');
       return;
     }
-
-    try {
-      const newUser = { name, email, password };
-      const config = {
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      const body = JSON.stringify(newUser);
-
-      const res = await axios.post('http://localhost:5000/api/users/signup', body, config);
-      props.setAlert('You are register success.', 'success');
-    } catch(err) {
-      props.setAlert('Register failed.', 'danger');
-    }
+    
+    props.register(name, email, password);
   }
 
   return (
@@ -105,4 +92,4 @@ const Register = (props) => {
   );
 }
 
-export default connect(null, { setAlert })(Register);
+export default connect(null, { setAlert, register })(Register);
