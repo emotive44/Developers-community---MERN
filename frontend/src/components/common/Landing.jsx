@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './Landing.css';
 
-const Landing = () => {
+import { connect } from 'react-redux';
+
+const Landing = ({ isAuth }) => {
   return (
     <section className="landing">
       <div className="dark-overlay">
@@ -13,8 +15,14 @@ const Landing = () => {
             other developers
           </p>
           <div className="buttons">
-            <Link to="/register" className="btn btn-primary">Sign Up</Link>
-            <Link to="/login" className="btn btn-light">Login</Link>
+            {
+              !isAuth && (
+                <Fragment>
+                  <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                  <Link to="/login" className="btn btn-light">Login</Link>
+                </Fragment>
+              )
+            }
           </div>
         </div>
       </div>
@@ -22,4 +30,8 @@ const Landing = () => {
   );
 }
 
-export default Landing;
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps)(Landing);
