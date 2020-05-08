@@ -5,9 +5,11 @@ import setAuthToken from '../utils/setAuthToken';
 import { setAlert } from './alert';
 import { 
   REGISTER_SUCCESS, 
+  LOGIN_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
-  AUTH_ERROR
+  AUTH_ERROR,
+  LOGIN_FAIL
 } from './types';
 
 
@@ -52,5 +54,35 @@ export const getUser = () => async dispatch => {
     });
   } catch (err) {
     dispatch({ type: AUTH_ERROR });
+  }
+}
+
+export const login = (email, password ) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  const body = JSON.stringify({email, password });
+  
+  try {
+    const res = await axios.post('http://localhost:5000/api/users/login', body, config);
+    
+    dispatch({ 
+      type: LOGIN_SUCCESS,
+      payload: res.data
+    });
+
+    // dispatch(getUser());
+
+    dispatch(setAlert('You are login success', 'success'));
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if(errors) {
+      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+
+    dispatch({ type: LOGIN_FAIL });
   }
 }

@@ -1,9 +1,11 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, Redirect } from 'react-router-dom';
 import './LoginRegister.css';
 
-const Login = () => {
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth';
+
+const Login = ({ login, isAuth }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -16,21 +18,13 @@ const Login = () => {
 
   const loginHandler = async e => {
     e.preventDefault();
-
-    try {
-      const user = { email, password };
-      const config = { 
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      }
-      const body = JSON.stringify(user);
-
-      const res = await axios.post('http://localhost:5000/api/users/login', body, config);
-      console.log(res.data);
-    } catch(err) {}
+    login(email, password);
   }
-
+  
+  if(isAuth) {
+    return <Redirect to='/dashboard'/>
+  }
+  
   return (
     <Fragment>
       <h1 className="large text-primary">Sign In</h1>
@@ -68,4 +62,8 @@ const Login = () => {
   );
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps, { login })(Login);

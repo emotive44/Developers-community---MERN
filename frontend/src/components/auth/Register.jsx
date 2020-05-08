@@ -1,5 +1,5 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
@@ -8,7 +8,7 @@ import './LoginRegister.css';
 import { setAlert } from '../../actions/alert';
 import { register } from '../../actions/auth';
 
-const Register = (props) => {
+const Register = ({ setAlert, register, isAuth }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -25,11 +25,15 @@ const Register = (props) => {
   const registerHandler = async e => {
     e.preventDefault();
     if(password !== password2) {
-      props.setAlert('Password do not match.', 'danger');
+      setAlert('Password do not match.', 'danger');
       return;
     }
     
-    props.register(name, email, password);
+    register(name, email, password);
+  }
+
+  if(isAuth) {
+    return <Redirect to='dashboard' />
   }
 
   return (
@@ -92,4 +96,8 @@ const Register = (props) => {
   );
 }
 
-export default connect(null, { setAlert, register })(Register);
+const mapStateToProps = state => ({
+  isAuth: state.auth.isAuth
+});
+
+export default connect(mapStateToProps, { setAlert, register })(Register);
