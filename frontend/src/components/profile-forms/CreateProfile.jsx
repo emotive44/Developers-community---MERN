@@ -1,12 +1,14 @@
 import React, { useState, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux'; 
+import { createAndUpdateProfile } from '../../actions/profile';
 
 import './CreateProfile.css';
 
 
-const CreateProfile = () => {
+const CreateProfile = ({ createAndUpdateProfile }) => {
+  const history = useHistory();
   const [displaySocials, setDisplaySocials] = useState(false);
   const [formData, setFormData] = useState({
     bio: '',
@@ -45,6 +47,7 @@ const CreateProfile = () => {
   const createProfileHandler = e => {
     e.preventDefault();
     console.log(formData);
+    createAndUpdateProfile(formData, history);
   }
 
   const inputHandler = e => {
@@ -219,4 +222,4 @@ const CreateProfile = () => {
   );
 }
 
-export default connect()(CreateProfile);
+export default connect(null, { createAndUpdateProfile })(CreateProfile);
