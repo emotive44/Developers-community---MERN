@@ -114,6 +114,17 @@ img {
   margin-bottom: 1rem;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-primary {
+  color: var(--primary-color);
+}
+
+.text-dark {
+  color: var(--dark-color);
+}
 
 /* Buttons */
 .btn {

@@ -43,6 +43,7 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         isAuth: false,
+        userId: null
       }
     default:
       return state;

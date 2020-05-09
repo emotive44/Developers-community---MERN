@@ -7,6 +7,7 @@ import {
   REGISTER_SUCCESS, 
   LOGIN_SUCCESS,
   REGISTER_FAIL,
+  CLEAR_PROFILE,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_FAIL,
@@ -74,7 +75,7 @@ export const login = (email, password ) => async dispatch => {
       payload: res.data
     });
 
-    // dispatch(getUser());
+    dispatch(getUser());
 
     dispatch(setAlert('You are login success', 'success'));
   } catch (err) {
@@ -89,5 +90,6 @@ export const login = (email, password ) => async dispatch => {
 }
 
 export const logout = () => dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
   dispatch({ type: LOGOUT });
 }

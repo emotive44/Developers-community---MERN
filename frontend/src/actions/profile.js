@@ -7,12 +7,10 @@ import { GET_PROFILE, PROFILE_ERROR } from './types';
 export const getCurrentProfile = () => async dispatch => {
   try {
     const res = await axios.get('http://localhost:5000/api/profile/me');
-
     dispatch({
       type: GET_PROFILE,
-      payload: res.data
+      payload: res.data.profile
     });
-    console.log(res.data)
   } catch (err) {
     const { msg, status } = err.response;
     dispatch({

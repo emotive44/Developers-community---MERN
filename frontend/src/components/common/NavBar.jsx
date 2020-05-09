@@ -12,10 +12,19 @@ const NavBar = ({ isAuth, logout }) => {
         <Link to='/'><i className="fas fa-code"></i> DevConnector</Link>
       </h1>
       <ul>
+        <li>
+          <Link to='/developers'>
+          <i className='fas fa-users' />{' '}
+            Developers
+          </Link>
+        </li>
         {
           isAuth && (
             <li>
-              <Link to='/developers'>Developers</Link>
+              <Link to='/dashboard'>
+              <i className='fas fa-user' />{' '}
+                Dashboard
+              </Link>
             </li>
           )
         }
@@ -37,7 +46,7 @@ const NavBar = ({ isAuth, logout }) => {
           isAuth && (
             <li onClick={logout}>
               <Link to='/'>
-                <i className='fas fa-sign-out-alt' />
+                <i className='fas fa-sign-out-alt' />{' '}
                 Logout
               </Link>
             </li>
