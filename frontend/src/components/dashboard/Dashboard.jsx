@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
 
 import Spinner from '../common/Spinner';
+import ActionsDashboard from './ActionsDashboard';
 
 const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) => {
   useEffect(() => {
@@ -24,7 +25,11 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) =
       </p>
       {
         profile !== null 
-          ? <Fragment>Has account</Fragment>
+          ? (
+              <Fragment>
+                <ActionsDashboard />
+              </Fragment>
+            )
           : (
               <Fragment> 
                 <p>You do not have setup a profile, please add some info.</p>
