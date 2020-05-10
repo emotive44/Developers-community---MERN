@@ -26,20 +26,25 @@ export const createAndUpdateProfile = (formData, history, edit = false) => async
       'Content-Type': 'application/json'
     }
   }
-
+console.log(edit, '0')
   try {
     const res = await axios.post('http://localhost:5000/api/profile', formData, config);
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data.profile
-    });
+    
+    dispatch(getCurrentProfile());
   
     dispatch(setAlert(`You ${!edit ? 'Create' : 'Edit'} profile success`, 'success'));
 
     if(!edit) {
       history.push('/dashboard');
+    } else {
+      window.scrollTo(0, 0);
     }
+
+    console.log(edit, '1')
+
   } catch (err) {
+    console.log(edit, '2');
+    window.scrollTo(0, 0);
     dispatch(setAlert(`${!edit ? 'Create' : 'Edit'} profile FAILED.`, 'danger'));
 
     const errors = err.response.data.errors

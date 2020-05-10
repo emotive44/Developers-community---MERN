@@ -69,6 +69,15 @@ const createProfile = async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.userId });
 
+    if(
+      profile.bio === bio && profile.status === status &&
+      profile.company === company && profile.website === website &&
+      profile.location === location && profile.githubUsername === githubUsername &&
+      JSON.stringify(profile.social) === JSON.stringify(profileFields.social)
+    ) {
+      return res.status(400).json({ errors: [ { msg: 'You should make a changes first.'}]})
+    }
+
     if(profile) {
       profile = await Profile.findOneAndUpdate(
         { user: req.userId },

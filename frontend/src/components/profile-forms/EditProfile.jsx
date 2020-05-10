@@ -1,29 +1,30 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux'; 
-import { createAndUpdateProfile } from '../../actions/profile';
+import { createAndUpdateProfile, getCurrentProfile } from '../../actions/profile';
 
 import './CreateAndEditProfile.css';
 
 
-const CreateProfile = ({ createAndUpdateProfile }) => {
+const EditProfile = ({ getCurrentProfile, createAndUpdateProfile, profile: { profile } }) => {
   const history = useHistory();
   const [displaySocials, setDisplaySocials] = useState(false);
   const [formData, setFormData] = useState({
-    bio: '',
-    status: '',
-    skills: '',
-    company: '',
-    twitter: '',
-    youtube: '',
-    website: '',
-    linkedIn: '',
-    facebook: '',
-    location: '',
-    instagram: '',
-    githubUsername: ''
+    bio: profile ? profile.bio : '',
+    status: profile ? profile.status : '',
+    company: profile ? profile.company : '',
+    website: profile ? profile.website : '',
+    location: profile ? profile.location : '',
+    skills: profile ? profile.skills.join(',') : '',
+    githubUsername: profile ? profile.githubUsername : '',
+    twitter: profile && profile.social ? profile.social.twitter : '',
+    youtube: profile && profile.social ? profile.social.youtube : '',
+    linkedIn: profile && profile.social ? profile.social.linkedIn :'',
+    facebook: profile && profile.social ? profile.social.facebook : '',
+    instagram: profile && profile.social ? profile.social.instagram : ''
   });
+
   const {
     bio,
     status,
@@ -41,19 +42,17 @@ const CreateProfile = ({ createAndUpdateProfile }) => {
 
   const toggleSocials = () => {
     setDisplaySocials(prev => !prev);
-    console.log(displaySocials)
   }
 
   const createProfileHandler = e => {
     e.preventDefault();
-    console.log(formData);
-    createAndUpdateProfile(formData, history);
+    createAndUpdateProfile(formData, history, true);
   }
 
   const inputHandler = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
-
+  
   return (
     <Fragment>
       <h1 className="large text-primary">
@@ -215,11 +214,15 @@ const CreateProfile = ({ createAndUpdateProfile }) => {
             </div>
           </Fragment>
         )}
-        <input type="submit" className="btn btn-primary my-1" value='Create Profile' />
+        <input type="submit" className="btn btn-primary my-1" value='Edit Profile' />
         <Link className="btn btn-light my-1" to='/dashboard'>Go Back</Link>
       </form>
     </Fragment>
   );
 }
 
-export default connect(null, { createAndUpdateProfile })(CreateProfile);
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps, { createAndUpdateProfile, getCurrentProfile })(EditProfile);
