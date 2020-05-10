@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux'; 
 import { createAndUpdateProfile, getCurrentProfile } from '../../actions/profile';
 
+import SocialNetworkLinks from './SocialNetworkLinks';
 import './CreateAndEditProfile.css';
 
 
@@ -156,64 +157,16 @@ const EditProfile = ({ getCurrentProfile, createAndUpdateProfile, profile: { pro
           </button>
           <span>Optional</span>
         </div>
-        {displaySocials && (
-          <Fragment>
-            <div className="form-group social-input">
-              <i className="fab fa-twitter fa-2x"></i>
-              <input 
-                type="text" 
-                name="twitter"
-                placeholder="Twitter URL"
-                value={twitter}
-                onChange={inputHandler}
-              />
-            </div>
-
-            <div className="form-group social-input">
-              <i className="fab fa-facebook fa-2x"></i>
-              <input 
-                type="text" 
-                name="facebook" 
-                placeholder="Facebook URL" 
-                value={facebook}
-                onChange={inputHandler}
-              />
-            </div>
-
-            <div className="form-group social-input">
-              <i className="fab fa-youtube fa-2x"></i>
-              <input 
-                type="text" 
-                name="youtube" 
-                placeholder="YouTube URL"
-                value={youtube}
-                onChange={inputHandler} 
-              />
-            </div>
-
-            <div className="form-group social-input">
-              <i className="fab fa-linkedin fa-2x"></i>
-              <input 
-                type="text"
-                name="linkedIn" 
-                placeholder="Linkedin URL" 
-                value={linkedIn}
-                onChange={inputHandler}
-              />
-            </div>
-
-            <div className="form-group social-input">
-              <i className="fab fa-instagram fa-2x"></i>
-              <input 
-                type="text" 
-                name="instagram" 
-                placeholder="Instagram URL" 
-                value={instagram}
-                onChange={inputHandler}
-              />
-            </div>
-          </Fragment>
-        )}
+        {displaySocials && (<SocialNetworkLinks 
+          socials={{
+            twitter,
+            facebook,
+            youtube,
+            linkedIn,
+            instagram,
+            inputHandler
+          }}/>)
+        }
         <input type="submit" className="btn btn-primary my-1" value='Edit Profile' />
         <Link className="btn btn-light my-1" to='/dashboard'>Go Back</Link>
       </form>

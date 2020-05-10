@@ -69,7 +69,7 @@ const createProfile = async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.userId });
 
-    if(
+    if(profile &&
       profile.bio === bio && profile.status === status &&
       profile.company === company && profile.website === website &&
       profile.location === location && profile.githubUsername === githubUsername &&

@@ -28,7 +28,7 @@ export const createAndUpdateProfile = (formData, history, edit = false) => async
   }
 console.log(edit, '0')
   try {
-    const res = await axios.post('http://localhost:5000/api/profile', formData, config);
+    await axios.post('http://localhost:5000/api/profile', formData, config);
     
     dispatch(getCurrentProfile());
   
