@@ -191,14 +191,14 @@ const AddProfileExperience = async (req, res, next) => {
   }
 
   if(!profile) {
-    return res.status(404).json({ msg: 'Profile not found.'});
+    return res.status(404).json({ errors: [ { msg: 'Profile not found.'}]});
   }
 
   try {
     profile.experience.unshift(newExp);
     await profile.save();
   } catch(err) {
-    res.status(500).json({ msg: 'Add experience failed, please try again.'});
+    res.status(500).json({ errors: [ { msg: 'Add experience failed, please try again.'}]});
   }
 
   res.status(201).json({ profile });

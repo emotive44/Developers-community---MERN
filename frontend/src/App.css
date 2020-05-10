@@ -155,3 +155,11 @@ img {
   background: var(--dark-color);
   color: #fff;
 }
+
+.btn-light,
+.bg-light,
+.badge-light,
+.alert-light {
+  background: var(--light-color);
+  color: #333;
+}
