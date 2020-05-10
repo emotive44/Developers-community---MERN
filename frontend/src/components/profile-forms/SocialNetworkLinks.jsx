@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import './SocialNetworkLinks.css';
+import Input from '../common/Input';
 
 const SocialNetworkLinks = (props) => {
   const {
@@ -13,60 +14,46 @@ const SocialNetworkLinks = (props) => {
 
   return (
     <Fragment>
-      <div className="form-group social-input">
-        <i className="fab fa-twitter fa-2x"></i>
-        <input 
-          type="text" 
-          name="twitter"
-          placeholder="Twitter URL"
-          value={twitter}
-          onChange={inputHandler}
-        />
-      </div>
-
-      <div className="form-group social-input">
-        <i className="fab fa-facebook fa-2x"></i>
-        <input 
-          type="text" 
-          name="facebook" 
-          placeholder="Facebook URL" 
-          value={facebook}
-          onChange={inputHandler}
-        />
-      </div>
-
-      <div className="form-group social-input">
-        <i className="fab fa-youtube fa-2x"></i>
-        <input 
-          type="text" 
-          name="youtube" 
-          placeholder="YouTube URL"
-          value={youtube}
-          onChange={inputHandler} 
-        />
-      </div>
-
-      <div className="form-group social-input">
-        <i className="fab fa-linkedin fa-2x"></i>
-        <input 
-          type="text"
-          name="linkedIn" 
-          placeholder="Linkedin URL" 
-          value={linkedIn}
-          onChange={inputHandler}
-        />
-      </div>
-
-      <div className="form-group social-input">
-        <i className="fab fa-instagram fa-2x"></i>
-        <input 
-          type="text" 
-          name="instagram" 
-          placeholder="Instagram URL" 
-          value={instagram}
-          onChange={inputHandler}
-        />
-      </div>
+      <Input 
+        type="text" 
+        name="twitter"
+        value={twitter}
+        className='twitter'
+        inputHandler={inputHandler}
+        placeholder="Twitter URL"
+      /> 
+      <Input 
+        type="text" 
+        name="facebook"
+        value={facebook}
+        className='facebook'
+        inputHandler={inputHandler}
+        placeholder="Facebook URL"
+      /> 
+      <Input 
+        type="text" 
+        name="youtube"
+        value={youtube}
+        className='youtube'
+        inputHandler={inputHandler}
+        placeholder="Youtube URL"
+      /> 
+      <Input 
+        type="text" 
+        name="linkedIn"
+        value={linkedIn}
+        className='linkedin'
+        inputHandler={inputHandler}
+        placeholder="Linkedin URL"
+      /> 
+      <Input 
+        type="text" 
+        name="instagram"
+        value={instagram}
+        className='instagram'
+        inputHandler={inputHandler}
+        placeholder="Instagram URL"
+      /> 
     </Fragment>
   )
 }

@@ -11,10 +11,12 @@ const Input = props => {
     inputHandler,
     required,
     textarea,
+    className
   } = props;
 
   return(
-    <div className="form-group">
+    <div className={`form-group ${className ? 'social-input' : null}`}>
+      {className && <i className={`fab fa-${className} fa-2x`} />}
       {textarea
         ? <textarea 
             name={name}
