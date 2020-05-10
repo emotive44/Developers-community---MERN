@@ -30,13 +30,12 @@ console.log(edit, '0')
   try {
     await axios.post('http://localhost:5000/api/profile', formData, config);
     
-    dispatch(getCurrentProfile());
-  
     dispatch(setAlert(`You ${!edit ? 'Create' : 'Edit'} profile success`, 'success'));
-
+    
     if(!edit) {
       history.push('/dashboard');
     } else {
+      dispatch(getCurrentProfile());
       window.scrollTo(0, 0);
     }
 
