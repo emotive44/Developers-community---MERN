@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createAndUpdateProfile, getCurrentProfile } from '../../actions/profile';
 
 import SocialNetworkLinks from './SocialNetworkLinks';
+import FormHeader from './FormHeader';
 import './CreateAndEditProfile.css';
 
 
@@ -56,14 +57,7 @@ const EditProfile = ({ getCurrentProfile, createAndUpdateProfile, profile: { pro
   
   return (
     <Fragment>
-      <h1 className="large text-primary">
-        Create Your Profile
-      </h1>
-      <p className="lead">
-        <i className="fas fa-user"/>    Let's get some information to make your
-        profile stand out
-      </p>
-      <span>* = required field</span>
+      <FormHeader type='Edit'/>
       <form className="form" onSubmit={createProfileHandler}>
         <div className="form-group">
           <select name="status" value={status} onChange={inputHandler}>
