@@ -54,46 +54,22 @@ console.log(edit, '0')
   }
 }
 
-export const addExperience = (formData, history) => async dispatch => {
+export const addExperienceOrEducation = (formData, history, type) => async dispatch => {
   const config = {
     headers: {
       'Content-Type': 'application/json'
     }
   }
   try {
-    const res = await axios.post('http://localhost:5000/api/profile/experience', formData, config);
+    const res = await axios.post(`http://localhost:5000/api/profile/${type}`, formData, config);
     console.log(1)
     dispatch(getCurrentProfile());
   
-    dispatch(setAlert('You add experience success', 'success'));
+    dispatch(setAlert(`You add ${type} success`, 'success'));
     history.push('/dashboard');
   } catch (err) {
     window.scrollTo(0, 0);
-    dispatch(setAlert('Add experience failed.', 'danger'));
-
-    const errors = err.response.data.errors
-    if(errors) {
-      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
-    }
-  }
-}
-
-export const addEducation = (formData, history) => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-  try {
-    const res = await axios.post('http://localhost:5000/api/profile/education', formData, config);
-    console.log(1)
-    dispatch(getCurrentProfile());
-  
-    dispatch(setAlert('You add education success', 'success'));
-    history.push('/dashboard');
-  } catch (err) {
-    window.scrollTo(0, 0);
-    dispatch(setAlert('Add education failed.', 'danger'));
+    dispatch(setAlert(`Add ${type} failed.`, 'danger'));
 
     const errors = err.response.data.errors
     if(errors) {

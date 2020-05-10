@@ -2,10 +2,10 @@ import React, { Fragment, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { addExperience } from '../../actions/profile';
+import { addExperienceOrEducation } from '../../actions/profile';
 
 
-const AddExperience = ({ addExperience }) => {
+const AddExperience = ({ addExperienceOrEducation }) => {
   const history = useHistory();
   const [formData, setFormData] = useState({
     to: '',
@@ -34,7 +34,7 @@ const AddExperience = ({ addExperience }) => {
   const addEducationHandler = e => {
     e.preventDefault();
     console.log(formData);
-    addExperience(formData, history);
+    addExperienceOrEducation(formData, history, 'experience');
   }
 
   return (
@@ -126,4 +126,4 @@ const AddExperience = ({ addExperience }) => {
   )
 }
 
-export default connect(null, { addExperience })(AddExperience);
+export default connect(null, { addExperienceOrEducation })(AddExperience);
