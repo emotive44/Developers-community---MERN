@@ -77,3 +77,27 @@ export const addExperience = (formData, history) => async dispatch => {
     }
   }
 }
+
+export const addEducation = (formData, history) => async dispatch => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }
+  try {
+    const res = await axios.post('http://localhost:5000/api/profile/education', formData, config);
+    console.log(1)
+    dispatch(getCurrentProfile());
+  
+    dispatch(setAlert('You add education success', 'success'));
+    history.push('/dashboard');
+  } catch (err) {
+    window.scrollTo(0, 0);
+    dispatch(setAlert('Add education failed.', 'danger'));
+
+    const errors = err.response.data.errors
+    if(errors) {
+      errors.map(error => dispatch(setAlert(error.msg, 'danger')));
+    }
+  }
+}

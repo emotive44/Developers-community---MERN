@@ -18,6 +18,7 @@ import PrivateRoute from './components/common/PrivateRoute';
 import CreateProfile from './components/profile-forms/CreateProfile';
 import EditProfile from './components/profile-forms/EditProfile';
 import AddExperience from './components/profile-forms/AddExperience';
+import AddEducation from './components/profile-forms/AddEducation';
 
 
 if(localStorage.token) {
@@ -43,6 +44,7 @@ const App = () => {
             <PrivateRoute path='/create-profile' component={CreateProfile}/>
             <PrivateRoute path='/edit-profile' component={EditProfile}/>
             <PrivateRoute path='/add-experience' component={AddExperience}/>
+            <PrivateRoute path='/add-education' component={AddEducation}/>
           </Switch>
         </section>
       </Router>
