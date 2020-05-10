@@ -6,6 +6,7 @@ const Input = props => {
     type,
     name,
     value,
+    minLength,
     placeholder,
     inputHandler,
     required,
@@ -29,6 +30,7 @@ const Input = props => {
             onChange={inputHandler}
             placeholder={placeholder}
             required={required ? true : false}
+            minLength={minLength ? +minLength : false}
           />
       }
       <span className="form-text">

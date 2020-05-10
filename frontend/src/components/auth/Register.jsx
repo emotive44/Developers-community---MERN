@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
+import Input from '../common/Input';
 import './LoginRegister.css';
 
 import { setAlert } from '../../actions/alert';
@@ -41,52 +42,41 @@ const Register = ({ setAlert, register, isAuth }) => {
       <h1 className="large text-primary">Sign Up</h1>
       <p className="lead"><i className="fas fa-user"></i> Create Your Account</p>
       <form className="form" onSubmit={registerHandler}>
-        <div className="form-group">
-          <input 
-            required
-            type="text" 
-            name="name"
-            value={name} 
-            placeholder="Name" 
-            onChange={inputHandler}
-           />
-        </div>
-        <div className="form-group">
-          <input 
-            required
-            type="email" 
-            name="email" 
-            value={email}
-            placeholder="Email Address" 
-            onChange={inputHandler}
-          />
-          <small className="form-text">
-            This site uses Gravatar so if you want a profile image, use a
-            Gravatar email
-          </small>
-        </div>
-        <div className="form-group">
-          <input
-            required
-            minLength="6"
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            required
-            minLength="6"
-            type="password"
-            name="password2"
-            value={password2}
-            onChange={inputHandler}
-            placeholder="Confirm Password"
-          />
-        </div>
+        <Input 
+          required
+          type='text'
+          name='name'
+          value={name}
+          inputHandler={inputHandler}
+          placeholder='Name'
+        />
+        <Input 
+          required
+          type='email'
+          name='email'
+          value={email}
+          inputHandler={inputHandler}
+          placeholder='Email Address'
+          msg='This site uses Gravatar so if you want a profile image, use a Gravatar email.'
+        />
+        <Input 
+          required
+          minLength='6'
+          type='password'
+          name='password'
+          value={password}
+          placeholder='Password'
+          inputHandler={inputHandler}
+        />
+        <Input 
+          required
+          minLength='6'
+          type='password'
+          name='password2'
+          value={password2}
+          inputHandler={inputHandler}
+          placeholder='Confirm Password'
+        />
         <input type="submit" className="btn btn-primary" value="Register" />
       </form>
       <p className="my-1">

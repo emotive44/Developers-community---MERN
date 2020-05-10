@@ -1,5 +1,7 @@
 import React, { useState, Fragment } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+
+import Input from '../common/Input';
 import './LoginRegister.css';
 
 import { connect } from 'react-redux';
@@ -30,26 +32,22 @@ const Login = ({ login, isAuth }) => {
       <h1 className="large text-primary">Sign In</h1>
       <p className="lead"><i className="fas fa-user"></i> Sign into Your Account</p>
       <form className="form" onSubmit={loginHandler}>
-        <div className="form-group">
-          <input
-            required
-            type="email"
-            name="email"
-            value={email}
-            onChange={inputHandler}
-            placeholder="Email Address"
-          />
-        </div>
-        <div className="form-group">
-          <input
-            required
-            type="password"
-            name="password"
-            value={password}
-            onChange={inputHandler}
-            placeholder="Password"
-          />
-        </div>
+        <Input 
+          required
+          type='email'
+          name='email'
+          value={email}
+          inputHandler={inputHandler}
+          placeholder='Email Address'
+        />
+        <Input 
+          required
+          type='password'
+          name='password'
+          value={password}
+          placeholder='Password'
+          inputHandler={inputHandler}
+        />
         <input 
           type="submit" 
           className="btn btn-primary" 
