@@ -4,6 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addExperienceOrEducation } from '../../actions/profile';
 
+import Input from '../common/Input';
+
 
 const AddExperience = ({ addExperienceOrEducation }) => {
   const history = useHistory();
@@ -46,44 +48,36 @@ const AddExperience = ({ addExperienceOrEducation }) => {
       </p>
       <span>* = required field</span>
       <form className="form" onSubmit={addEducationHandler}>
-        <div className="form-group">
-          <input 
-            required 
-            type="text" 
-            name="title" 
-            placeholder="* Job Title"
-            value={title}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            required 
-            type="text" 
-            name="company" 
-            placeholder="* Company" 
-            value={company}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="text" 
-            name="location" 
-            placeholder="Location"
-            value={location}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input 
-            type="date" 
-            name="from" 
-            value={from}
-            onChange={inputHandler}
-          />
-        </div>
+        <Input
+          required
+          type='text'
+          name='title'
+          value={title}
+          placeholder='* Job Title'
+          inputHandler={inputHandler}
+        />
+        <Input
+          required
+          type='text'
+          name='company'
+          value={company}
+          placeholder='* Company'
+          inputHandler={inputHandler}
+        />
+         <Input
+          type='text'
+          name='location'
+          value={location}
+          placeholder='Location'
+          inputHandler={inputHandler}
+        />
+        <h4>From Date</h4>
+         <Input
+          type='date'
+          name='from'
+          value={from}
+          inputHandler={inputHandler}
+        />
          <div className="form-group">
           <p>
             <input 
@@ -98,27 +92,24 @@ const AddExperience = ({ addExperienceOrEducation }) => {
             /> Current Job
             </p>
         </div>
-        {!toDisable && (
-          <div className="form-group">
+        {!toDisable && 
+          <Fragment>
             <h4>To Date</h4>
-            <input 
-              type="date" 
-              name="to"
-              value={to}
-              onChange={inputHandler}
-            />
-          </div>
-        )}
-        <div className="form-group">
-          <textarea
-            rows="5"
-            cols="30"
-            name="description"
-            placeholder="Job Description"
-            value={description}
-            onChange={inputHandler}
-          />
-        </div>
+             <Input
+                type='date'
+                name='to'
+                value={to}
+                inputHandler={inputHandler}
+              />
+          </Fragment>
+        }
+        <Input
+          textarea
+          name='description'
+          value={description}
+          placeholder="Job Description"
+          inputHandler={inputHandler}
+        />
         <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to='/dashboard'>Go Back</Link>
       </form>

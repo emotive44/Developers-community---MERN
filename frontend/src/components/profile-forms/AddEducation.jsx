@@ -4,6 +4,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addExperienceOrEducation } from '../../actions/profile';
 
+import Input from '../common/Input';
+
 
 const AddEducation = ({ addExperienceOrEducation }) => {
   const history = useHistory();
@@ -48,44 +50,36 @@ const AddEducation = ({ addExperienceOrEducation }) => {
       </p>
       <span>* = required field</span>
       <form className="form" onSubmit={addEducationHandler}>
-        <div className="form-group">
-          <input
-            required
-            type="text"
-            name="school"
-            placeholder="* School or Bootcamp"
-            value={school}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <input
-            required
-            type="text"
-            name="degree"
-            placeholder="* Degree or Certificate"
-            value={degree}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <input 
-            type="text" 
-            name="fieldOfStudy" 
-            placeholder="Field Of Study" 
-            value={fieldOfStudy}
-            onChange={inputHandler}
-          />
-        </div>
-        <div className="form-group">
-          <h4>From Date</h4>
-          <input 
-            type="date" 
-            name="from" 
-            value={from}
-            onChange={inputHandler}
-          />
-        </div>
+        <Input
+          required
+          type='text'
+          name='school'
+          value={school}
+          placeholder='* School or Bootcamp'
+          inputHandler={inputHandler}
+        />
+         <Input
+          required
+          type='text'
+          name='degree'
+          value={degree}
+          placeholder='* Degree or Certificate'
+          inputHandler={inputHandler}
+        />
+         <Input
+          type='text'
+          name='fieldOfStudy'
+          value={fieldOfStudy}
+          placeholder='Field Of Study'
+          inputHandler={inputHandler}
+        />
+        <h4>From Date</h4>
+        <Input
+          type='date'
+          name='from'
+          value={from}
+          inputHandler={inputHandler}
+        />
         <div className="form-group">
           <p>
             <input 
@@ -100,27 +94,24 @@ const AddEducation = ({ addExperienceOrEducation }) => {
             /> Current School or Bootcamp
           </p>
         </div>
-        {!toDisable && (
-          <div className="form-group">
+        {!toDisable && 
+          <Fragment>
             <h4>To Date</h4>
-            <input 
-              type="date" 
-              name="to" 
+            <Input
+              type='date'
+              name='to'
               value={to}
-              onChange={inputHandler}
+              inputHandler={inputHandler}
             />
-          </div>
-        )}
-        <div className="form-group">
-          <textarea
-            rows="5"
-            cols="30"
-            name="description"
-            placeholder="Program Description"
-            value={description}
-            onChange={inputHandler}
-          />
-        </div>
+          </Fragment>
+        }
+        <Input
+          textarea
+          name='description'
+          value={description}
+          placeholder='Program Description'
+          inputHandler={inputHandler}
+        />
         <input type="submit" className="btn btn-primary my-1" />
         <Link className="btn btn-light my-1" to='/dashboard'>Go Back</Link>
       </form>

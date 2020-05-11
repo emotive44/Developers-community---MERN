@@ -32,7 +32,7 @@ const Input = props => {
             onChange={inputHandler}
             placeholder={placeholder}
             required={required ? true : false}
-            minLength={minLength ? +minLength : false}
+            minLength={minLength ? +minLength : 0}
           />
       }
       <span className="form-text">
