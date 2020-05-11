@@ -18,7 +18,7 @@ const Landing = ({ isAuth }) => {
             {
               !isAuth && (
                 <Fragment>
-                  <Link to="/register" className="btn btn-primary">Sign Up</Link>
+                  <Link to="/register" className="btn btn-primary mr">Sign Up</Link>
                   <Link to="/login" className="btn btn-light">Login</Link>
                 </Fragment>
               )

@@ -1,0 +1,25 @@
+.table-education {
+  width: 80%;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+}
+
+.table th {
+  background: var(--light-color);
+}
+
+.center-button {
+  text-align: center;
+}
+
+.table-education tr:nth-child(odd) {
+  background-color: rgb(228, 222, 222);
+}
+
+
+.table-education tr:nth-child(even) {
+  background-color: var(--light-color)
+}

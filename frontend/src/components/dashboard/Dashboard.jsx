@@ -6,6 +6,7 @@ import { getCurrentProfile } from '../../actions/profile';
 
 import Spinner from '../common/Spinner';
 import ActionsDashboard from './ActionsDashboard';
+import ExperienceOrEducation from './ExperienceOrEducation';
 
 const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) => {
   useEffect(() => {
@@ -28,6 +29,8 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) =
           ? (
               <Fragment>
                 <ActionsDashboard />
+                <ExperienceOrEducation experience={profile.experience}/>
+                <ExperienceOrEducation education={profile.education}/>
               </Fragment>
             )
           : (
