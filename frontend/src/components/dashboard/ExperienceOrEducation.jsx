@@ -2,11 +2,12 @@ import React, { Fragment } from 'react';
 import Moment from 'react-moment';
 
 import { connect } from 'react-redux';
+import { deleteExperienceOrEducation } from '../../actions/profile';
 
 import './ExperienceOrEducation.css';
 
 
-const Experience = ({ experience, education }) => {
+const Experience = ({ experience, education, deleteExperienceOrEducation }) => {
   return (
     <Fragment>
       <h2 className="my-2">
@@ -36,7 +37,9 @@ const Experience = ({ experience, education }) => {
                   {exp.to === null ? ' Now' : <Moment format='YYYY/MM/DD'>{exp.to}</Moment>}
                 </td>
                 <td className='center-button'>
-                  <button className="btn btn-danger">Delete</button>
+                  <button className="btn btn-danger" onClick={() => deleteExperienceOrEducation(exp._id, null)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
               ))
@@ -49,7 +52,9 @@ const Experience = ({ experience, education }) => {
                   {educ.to === null ? ' Now' : <Moment format='YYYY/MM/DD'>{educ.to}</Moment>}
                 </td>
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <button className="btn btn-danger" onClick={() => deleteExperienceOrEducation(null, educ._id)}>
+                    Delete
+                  </button>
                 </td>
               </tr>
               ))
@@ -60,4 +65,4 @@ const Experience = ({ experience, education }) => {
   );
 }
 
-export default connect()(Experience);
+export default connect(null, {deleteExperienceOrEducation})(Experience);

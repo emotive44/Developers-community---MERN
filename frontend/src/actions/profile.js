@@ -76,3 +76,18 @@ export const addExperienceOrEducation = (formData, history, type) => async dispa
     }
   }
 }
+
+export const deleteExperienceOrEducation = (expId, educId) => async dispatch => {
+  const url = `http://localhost:5000/api/profile/${expId ? `experience/${expId}` : `education/${educId}`}`
+
+  try {
+    await axios.delete(url);
+    dispatch(getCurrentProfile());
+    dispatch(setAlert(`You delete ${expId ? 'experience' : 'education'} field success`, 'success'));
+    window.scrollTo(0, 0);
+  } catch (err) {
+    window.scrollTo(0, 0);
+    dispatch(setAlert(`Delete ${expId ? 'experience' : 'education'} failed.`, 'danger'));
+    dispatch(setAlert(err.response.msg, 'danger'))
+  }
+}
