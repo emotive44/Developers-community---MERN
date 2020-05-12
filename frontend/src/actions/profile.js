@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR } from './types';
+import { GET_PROFILE, PROFILE_ERROR, GET_PROFILES, GET_GITHUBREPOS } from './types';
 import { logout } from './auth';
 
 
@@ -11,6 +11,54 @@ export const getCurrentProfile = () => async dispatch => {
     dispatch({
       type: GET_PROFILE,
       payload: res.data.profile
+    });
+  } catch (err) {
+    const { msg, status } = err.response;
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg, status }
+    })
+  }
+}
+
+export const getAllProfiles = () => async dispatch => {
+  try {
+    const res = await axios.get('http://localhost:5000/api/profile');
+    dispatch({
+      type: GET_PROFILES,
+      payload: res.data.profiles
+    });
+  } catch (err) {
+    const { msg, status } = err.response;
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg, status }
+    })
+  }
+}
+
+export const getAllProfileById = (userId) => async dispatch => {
+  try {
+    const res = await axios.get(`http://localhost:5000/api/profile/user/${userId}`);
+    dispatch({
+      type: GET_PROFILE,
+      payload: res.data.profile
+    });
+  } catch (err) {
+    const { msg, status } = err.response;
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg, status }
+    })
+  }
+}
+
+export const getGithubRepos= (username) => async dispatch => {
+  try {
+    const res = await axios.get(`http://localhost:5000/api/profile/github/${username}`);
+    dispatch({
+      type: GET_GITHUBREPOS,
+      payload: res.data.repos
     });
   } catch (err) {
     const { msg, status } = err.response;

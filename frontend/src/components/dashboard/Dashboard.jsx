@@ -32,6 +32,12 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile, del
                 <ActionsDashboard />
                 <ExperienceOrEducation experience={profile.experience}/>
                 <ExperienceOrEducation education={profile.education}/>
+                <div className="my-2">
+                  <button className="btn btn-danger" onClick={() => deleteAccount(history)}>
+                      <i className="fas fa-user-minus" />
+                      Delete My Account
+                  </button>
+                </div>
               </Fragment>
             )
           : (
@@ -42,14 +48,6 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile, del
                 </Link>
               </Fragment>
             )
-      }
-      {profile && 
-        <div className="my-2">
-          <button className="btn btn-danger" onClick={() => deleteAccount(history)}>
-              <i className="fas fa-user-minus" />
-              Delete My Account
-          </button>
-        </div>
       }
     </Fragment>
   )
