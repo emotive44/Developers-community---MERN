@@ -6,6 +6,7 @@ import { getAllProfileById } from '../../actions/profile';
 
 import Spinner from '../common/Spinner';
 import ProfileHeader from './ProfileHeader';
+import ProfileAbout from './ProfileAbout';
 
 
 const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth }) => {
@@ -25,7 +26,11 @@ const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth
         </Link>
       }
       <div className="profile-grid my-1">
-        {profile && <ProfileHeader profile={profile} />}
+        {profile && <Fragment>
+          <ProfileHeader profile={profile} />
+          <ProfileAbout profile={profile} />
+        </Fragment>
+        }
       </div>
     </Fragment>
   );
