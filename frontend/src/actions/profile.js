@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { setAlert } from './alert';
-import { GET_PROFILE, PROFILE_ERROR, GET_PROFILES, GET_GITHUBREPOS } from './types';
+import { GET_PROFILE, PROFILE_ERROR, GET_PROFILES, GET_GITHUBREPOS, CLEAR_PROFILE } from './types';
 import { logout } from './auth';
 
 
@@ -22,6 +22,7 @@ export const getCurrentProfile = () => async dispatch => {
 }
 
 export const getAllProfiles = () => async dispatch => {
+  dispatch({ type: CLEAR_PROFILE });
   try {
     const res = await axios.get('http://localhost:5000/api/profile');
     dispatch({
