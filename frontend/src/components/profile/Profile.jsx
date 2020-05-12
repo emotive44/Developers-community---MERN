@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { getAllProfileById } from '../../actions/profile';
 
 import Spinner from '../common/Spinner';
+import ProfileHeader from './ProfileHeader';
 
 
 const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth }) => {
@@ -23,6 +24,9 @@ const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth
           Edit Profile
         </Link>
       }
+      <div className="profile-grid my-1">
+        {profile && <ProfileHeader profile={profile} />}
+      </div>
     </Fragment>
   );
 }
