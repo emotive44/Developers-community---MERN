@@ -13,10 +13,10 @@ const NavBar = ({ isAuth, logout }) => {
       </h1>
       <ul>
         <li>
-          <Link to='/developers'>
+          <Link to='/profiles'>
           <i className='fas fa-users' />{' '}
             Developers
-          </Link>
+          </Link> 
         </li>
         {
           isAuth && (
