@@ -1,14 +1,15 @@
 import React, { useEffect, Fragment } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
+import { getCurrentProfile, deleteAccount } from '../../actions/profile';
 
 import Spinner from '../common/Spinner';
 import ActionsDashboard from './ActionsDashboard';
 import ExperienceOrEducation from './ExperienceOrEducation';
 
-const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) => {
+const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile, deleteAccount }) => {
+  const history = useHistory();
   useEffect(() => {
     getCurrentProfile(); 
   }, []);
@@ -22,7 +23,7 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) =
       <h1 className="large text-primary">Dashboard</h1>
       <p className="lead">
         <i className="fas fa-user" /> 
-          Welcome {profile && <span>{profile.user.name.toUpperCase()}</span>}
+          Welcome {profile && profile.user && <span>{profile.user.name.toUpperCase()}</span>}
       </p>
       {
         profile !== null 
@@ -42,6 +43,14 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile }) =
               </Fragment>
             )
       }
+      {profile && 
+        <div className="my-2">
+          <button className="btn btn-danger" onClick={() => deleteAccount(history)}>
+              <i className="fas fa-user-minus" />
+              Delete My Account
+          </button>
+        </div>
+      }
     </Fragment>
   )
 }
@@ -51,4 +60,4 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Dashboard);
+export default connect(mapStateToProps, { getCurrentProfile, deleteAccount })(Dashboard);

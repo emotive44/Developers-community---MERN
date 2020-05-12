@@ -8,6 +8,8 @@ import {
   LOGOUT
 } from '../actions/types';
 
+import setAuthToken from '../utils/setAuthToken';
+
 const initialState = {
   token: localStorage.getItem('token'),
   loading: true,
@@ -28,6 +30,7 @@ export default function (state = initialState, action) {
     case REGISTER_SUCCESS:
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
+      setAuthToken(payload.token);
       return {
         ...state,
         ...payload,
@@ -43,7 +46,8 @@ export default function (state = initialState, action) {
         ...state,
         loading: false,
         isAuth: false,
-        userId: null
+        userId: null,
+        token: null
       }
     default:
       return state;

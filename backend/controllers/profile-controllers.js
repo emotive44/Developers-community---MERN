@@ -4,6 +4,7 @@ const { validationResult } = require('express-validator');
 
 const Profile = require('../models/profile');
 const User = require('../models/user');
+const Post = require('../models/post');
 
 const getProfile = async (req, res, next) => {
   let profile;
@@ -148,6 +149,7 @@ const deleteProfile = async (req, res, next) => {
     sess.startTransaction();
     await profile.remove({ session: sess });
     await User.findByIdAndRemove(userId);
+    await Post.deleteMany({ user: userId });
     sess.commitTransaction();
   } catch(err) {
     res.status(500).json({msg: 'Deleting failed, please try again.'});

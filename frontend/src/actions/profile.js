@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { setAlert } from './alert';
 import { GET_PROFILE, PROFILE_ERROR } from './types';
+import { logout } from './auth';
 
 
 export const getCurrentProfile = () => async dispatch => {
@@ -84,10 +85,28 @@ export const deleteExperienceOrEducation = (expId, educId) => async dispatch => 
     await axios.delete(url);
     dispatch(getCurrentProfile());
     dispatch(setAlert(`You delete ${expId ? 'experience' : 'education'} field success`, 'success'));
-    window.scrollTo(0, 0);
   } catch (err) {
     window.scrollTo(0, 0);
     dispatch(setAlert(`Delete ${expId ? 'experience' : 'education'} failed.`, 'danger'));
     dispatch(setAlert(err.response.msg, 'danger'))
   }
+}
+
+export const deleteAccount = (history) => async dispatch => {
+  if(window.confirm('Are you sure? This can NOT be undone.')) {
+    try {
+      await axios.delete('http://localhost:5000/api/profile');
+
+      dispatch(logout());
+      dispatch(setAlert(`You delete your profile success`, 'success'));
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    } catch (err) {
+      window.scrollTo(0, 0);
+      dispatch(setAlert(`Delete your profile failed.`, 'danger'));
+      dispatch(setAlert(err.response.msg, 'danger'))
+    }
+  }
+
 }
