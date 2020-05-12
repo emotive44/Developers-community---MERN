@@ -1,6 +1,7 @@
 .profile-about {
   grid-area: about;
   text-align: center;
+  border: 1px solid gray;
 }
 
 .profile-about .skills {

@@ -7,6 +7,9 @@ import { getAllProfileById } from '../../actions/profile';
 import Spinner from '../common/Spinner';
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
+import ProfileExp from './ProfileExp';
+import ProfileEduc from './ProfileEduc';
+import './Profile.css';
 
 
 const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth }) => {
@@ -29,6 +32,8 @@ const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth
         {profile && <Fragment>
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
+          <ProfileExp experiences={profile.experience} />
+          <ProfileEduc educations={profile.education} />
         </Fragment>
         }
       </div>

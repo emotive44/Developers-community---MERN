@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  border: 1px solid gray;
 }
 
 .profile-top img {
