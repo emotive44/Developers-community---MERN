@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect } from 'react';
+import React, { useState, Fragment } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import { connect } from 'react-redux'; 

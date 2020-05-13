@@ -76,7 +76,7 @@ export const createAndUpdateProfile = (formData, history, edit = false) => async
       'Content-Type': 'application/json'
     }
   }
-console.log(edit, '0')
+
   try {
     await axios.post('http://localhost:5000/api/profile', formData, config);
     
@@ -89,10 +89,7 @@ console.log(edit, '0')
       window.scrollTo(0, 0);
     }
 
-    console.log(edit, '1')
-
   } catch (err) {
-    console.log(edit, '2');
     window.scrollTo(0, 0);
     dispatch(setAlert(`${!edit ? 'Create' : 'Edit'} profile FAILED.`, 'danger'));
 
@@ -110,8 +107,7 @@ export const addExperienceOrEducation = (formData, history, type) => async dispa
     }
   }
   try {
-    const res = await axios.post(`http://localhost:5000/api/profile/${type}`, formData, config);
-    console.log(1)
+    await axios.post(`http://localhost:5000/api/profile/${type}`, formData, config);
     dispatch(getCurrentProfile());
   
     dispatch(setAlert(`You add ${type} success`, 'success'));

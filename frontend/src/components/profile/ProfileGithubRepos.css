@@ -5,6 +5,7 @@
 
 .profile-github .repo {
   display: flex;
+  border-bottom: 1px dotted gray;
 }
 
 .profile-github .repo > div:first-child {
@@ -15,6 +16,7 @@
 .profile-github > div:last-child {
   flex: 3;
   flex-basis: 20%;
+  border: none;
 }
 
 .text-primary { 
@@ -23,5 +25,7 @@
 
 .flex {
   display: flex;
+  width: 10rem;
+  padding: 0.5rem;
   justify-content: space-between;
 }

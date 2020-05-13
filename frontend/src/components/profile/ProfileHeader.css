@@ -20,3 +20,11 @@
 .profile-top .icons a:hover {
   color: var(--dark-color);
 }
+
+.location {
+  font-size: 1.5rem;
+}
+
+.lead {
+  font-size: 1.7rem;
+}

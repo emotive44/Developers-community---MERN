@@ -11,7 +11,7 @@ import './Profiles.css';
 const Profiles = ({ getAllProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
     getAllProfiles();
-  }, []);
+  }, [getAllProfiles]);
 
   return (
     <Fragment>

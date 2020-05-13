@@ -17,14 +17,14 @@ const ProfileHeader = ({
     <div className="profile-top bg-primary p-2">
       <img
         src={avatar}
-        alt="profile image"
+        alt=""
         className="round-img my-1"
       />
       <h1 className="large">{name}</h1>
-      <p className={`${location && 'lead'}`}>
+      <p className='lead'>
         {status} {company && `at ${company}`}
       </p>
-      {location && <p>{location}</p>}
+      {location && <p className='location'>{location}</p>}
       {social &&
         <div className="icons my-1">
           {website && <a href={website} target="_blank" rel="noopener noreferrer">

@@ -16,7 +16,7 @@ import './Profile.css';
 const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth }) => {
   useEffect(() => {
     getAllProfileById(match.params.profileId);
-  }, [getAllProfileById]);
+  }, [getAllProfileById, match.params.profileId]);
 
   return (
     <Fragment>

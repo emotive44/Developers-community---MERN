@@ -12,7 +12,7 @@ const Dashboard = ({ auth, profile: { profile, loading }, getCurrentProfile, del
   const history = useHistory();
   useEffect(() => {
     getCurrentProfile(); 
-  }, []);
+  }, [getCurrentProfile]);
 
   if(loading) {
     return <Spinner />

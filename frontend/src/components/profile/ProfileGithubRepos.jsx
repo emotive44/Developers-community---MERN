@@ -11,7 +11,7 @@ const ProfileGithubRepos = ({ repos, username, getGithubRepos }) => {
   
   useEffect(() => {
     getGithubRepos(username);
-  }, []);
+  }, [getGithubRepos, username]);
 
   return (
     <div className="profile-github">
@@ -23,7 +23,7 @@ const ProfileGithubRepos = ({ repos, username, getGithubRepos }) => {
         <div className="repo bg-white p-1 my-1" key={repo.id}>
           <div>
             <h4>
-              <a href={repo.html_url} target="_blank"> {repo.name}</a>
+              <a href={repo.html_url} target="_blank" rel="noopener noreferrer"> {repo.name}</a>
             </h4>
             <p>Created at: {repo.created_at.split('T')[0]}</p>
             <p>Usaged language: {repo.language}</p>
@@ -31,7 +31,7 @@ const ProfileGithubRepos = ({ repos, username, getGithubRepos }) => {
           <div>
             <ul>
               <li className="badge badge-primary flex">Stars: <span>{repo.stargazers_count}</span></li>
-              <li className="badge badge-dark flex">Watchers: {repo.watchers}</li>
+              <li className="badge badge-dark flex">Watchers: <span>{repo.watchers}</span></li>
               <li className="badge badge-light flex">Forks: <span>{repo.forks}</span></li>
             </ul>
           </div>
