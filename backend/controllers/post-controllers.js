@@ -128,7 +128,7 @@ const likePost = async (req, res, next) => {
     next(new Error('Like post failed, please try again.'));
   }
 
-  res.status(201).json({ msg: 'You like a post.' });
+  res.status(201).json(post.likes);
 }
 
 const unlikePost = async (req, res, next) => {
@@ -166,7 +166,7 @@ const unlikePost = async (req, res, next) => {
     next(new Error('Unlike post failed, please try again.'));
   }
 
-  res.status(201).json({ msg: 'You unlike a post.' });
+  res.status(201).json(post.likes);
 }
 
 const createComment = async (req, res, next) => {

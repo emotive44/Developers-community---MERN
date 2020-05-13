@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './PostItem.css';
 
 import { connect } from 'react-redux';
+import { likeOrUnlike, getPosts } from '../../actions/post';
 
 import Moment from 'react-moment';
 
@@ -17,7 +18,8 @@ const PostItem = ({
     date,
     user
   },
-  userId
+  userId,
+  likeOrUnlike
 }) => {
   return (
     <div className="post bg-white p-1 my-1">
@@ -36,11 +38,11 @@ const PostItem = ({
           <p className="post-date">
             Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
-        <button type="button" className="btn btn-light">
+        <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'like')}>
+          <span>{likes.length > 0 && likes.length}    </span>
           <i className="fas fa-thumbs-up" />
-          <span>{likes.length > 0 && likes.length}</span>
         </button>
-        <button type="button" className="btn btn-light">
+        <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'unlike')}>
           <i className="fas fa-thumbs-down" />
         </button>
         <Link to={`post/${_id}`} className="btn btn-primary">
@@ -62,4 +64,4 @@ const mapStateToProps = state => ({
   userId: state.auth.userId
 });
 
-export default connect(mapStateToProps, {  })(PostItem);
+export default connect(mapStateToProps, { likeOrUnlike })(PostItem);

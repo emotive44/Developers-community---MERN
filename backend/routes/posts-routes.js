@@ -29,7 +29,7 @@ router.delete('/:postId', auth, postControllers.deletePost);
 
 router.delete('/:postId/comments/:commentId', auth, postControllers.deleteComment);
 
-router.put('/:postId/likes', auth, postControllers.likePost);
+router.put('/:postId/like', auth, postControllers.likePost);
 
 router.put('/:postId/unlike', auth, postControllers.unlikePost);
 

@@ -3,6 +3,8 @@
   grid-template-columns: 1fr 4fr;
   grid-gap: 2rem;
   align-items: center;
+  border: 1px solid gray;
+  background: ghostwhite
 }
 
 .post > div:first-child {
