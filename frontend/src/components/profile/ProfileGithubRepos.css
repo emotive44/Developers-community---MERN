@@ -1,0 +1,27 @@
+.profile-github {
+  grid-area: github;
+  border: 1px solid gray;
+}
+
+.profile-github .repo {
+  display: flex;
+}
+
+.profile-github .repo > div:first-child {
+  flex: 7;
+  flex-basis: 70%;
+}
+
+.profile-github > div:last-child {
+  flex: 3;
+  flex-basis: 20%;
+}
+
+.text-primary { 
+  margin-left: 1rem;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}

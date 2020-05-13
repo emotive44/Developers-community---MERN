@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 
 const ProfileExp = ({ experiences }) => {
   if(experiences.length < 1) {
-    return <h4>No experience credentials</h4>
+    return <h4 className='text-center'>No experience credentials</h4>
   }
 
   return (

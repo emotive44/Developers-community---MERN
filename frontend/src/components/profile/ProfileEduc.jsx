@@ -5,7 +5,7 @@ import Moment from 'react-moment';
 
 const ProfileEduc = ({ educations }) => {
   if(educations.length < 1) {
-    return <h4>No education credentials</h4>
+    return <h4 className='text-center'>No education credentials</h4>
   }
 
   return (

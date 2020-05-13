@@ -9,6 +9,7 @@ import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
 import ProfileExp from './ProfileExp';
 import ProfileEduc from './ProfileEduc';
+import ProfileGithubRepos from './ProfileGithubRepos';
 import './Profile.css';
 
 
@@ -34,6 +35,7 @@ const Profile = ({ getAllProfileById, match, profile: { profile, loading }, auth
           <ProfileAbout profile={profile} />
           <ProfileExp experiences={profile.experience} />
           <ProfileEduc educations={profile.education} />
+          {profile.githubUsername && <ProfileGithubRepos username={profile.githubUsername}/>}
         </Fragment>
         }
       </div>
