@@ -20,6 +20,7 @@ import AddExperience from './components/profile-forms/AddExperience';
 import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
+import Posts from './components/posts/Posts';
 
 
 if(localStorage.token) {
@@ -43,6 +44,7 @@ const App = () => {
             <Route path='/register' component={Register}/>
             <Route path='/profiles' component={Profiles}/>
             <Route path='/profile/:profileId' component={Profile}/>
+            <PrivateRoute path='/posts' component={Posts}/>
             <PrivateRoute path='/dashboard' component={Dashboard}/>
             <PrivateRoute path='/create-profile' component={() => <CreateOrEditProfile types='Create'/>}/>
             <PrivateRoute path='/edit-profile' component={() => <CreateOrEditProfile types='Edit'/>}/>

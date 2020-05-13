@@ -29,6 +29,16 @@ const NavBar = ({ isAuth, logout }) => {
           )
         }
         {
+          isAuth && (
+            <li>
+              <Link to='/posts'>
+              <i className='fas fa-mail-bulk' />{' '}
+                Posts
+              </Link>
+            </li>
+          )
+        }
+        {
           !isAuth && (
             <li>
               <Link to='/register'>Register</Link>
