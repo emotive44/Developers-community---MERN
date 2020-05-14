@@ -33,3 +33,7 @@
   background: var(--primary-color);
   padding: 0.5rem;
 }
+
+.post-form textarea {
+  resize: none;
+}

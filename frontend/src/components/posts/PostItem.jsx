@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import './PostItem.css';
 
@@ -20,6 +20,7 @@ const PostItem = ({
   },
   userId,
   deletePost,
+  showActions,
   likeOrUnlike
 }) => {
   return (
@@ -39,25 +40,29 @@ const PostItem = ({
           <p className="post-date">
             Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
-        <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'like')}>
-          <span>{likes.length > 0 && likes.length}    </span>
-          <i className="fas fa-thumbs-up" />
-        </button>
-        <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'unlike')}>
-          <i className="fas fa-thumbs-down" />
-        </button>
-        <Link to={`posts/${_id}`} className="btn btn-primary">
-          Discussion {comments.length > 0 && 
-            <span className='comment-count'>
-              {comments.length}
-            </span>
-          }
-        </Link>
-        {user === userId && ( 
-          <button type="button" className="btn btn-danger" onClick={() => deletePost(_id)}>
-            Delete Post {'  '} <i className="fas fa-times" />
-          </button>
-        )}
+        {showActions && 
+          <Fragment>
+            <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'like')}>
+              <span>{likes.length > 0 && likes.length}    </span>
+              <i className="fas fa-thumbs-up" />
+            </button>
+            <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'unlike')}>
+              <i className="fas fa-thumbs-down" />
+            </button>
+            <Link to={`posts/${_id}`} className="btn btn-primary">
+              Discussion {comments.length > 0 && 
+                <span className='comment-count'>
+                  {comments.length}
+                </span>
+              }
+            </Link>
+            {user === userId && ( 
+              <button type="button" className="btn btn-danger" onClick={() => deletePost(_id)}>
+                Delete Post {'  '} <i className="fas fa-times" />
+              </button>
+            )}
+          </Fragment>
+        }
       </div>
     </div>
   );

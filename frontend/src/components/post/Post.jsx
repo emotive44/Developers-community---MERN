@@ -1,10 +1,11 @@
 import React, { Fragment, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { getPost } from '../../actions/post';
 
 import Spinner from '../common/Spinner';
-import './Post.css';
+import PostItem from '../posts/PostItem';
 
 
 const Post = ({ getPost, post: { post, loading}, match }) => {
@@ -15,7 +16,8 @@ const Post = ({ getPost, post: { post, loading}, match }) => {
   return (
     <Fragment>
       {loading && <Spinner />}
-      dsadsdad
+      <Link to='/posts' className='btn'>Go back to posts</Link>
+      {post && <PostItem post={post}/>}
     </Fragment>
   );
 }
