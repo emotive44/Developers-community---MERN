@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './PostItem.css';
 
 import { connect } from 'react-redux';
-import { likeOrUnlike, getPosts } from '../../actions/post';
+import { likeOrUnlike, deletePost } from '../../actions/post';
 
 import Moment from 'react-moment';
 
@@ -19,6 +19,7 @@ const PostItem = ({
     user
   },
   userId,
+  deletePost,
   likeOrUnlike
 }) => {
   return (
@@ -50,9 +51,9 @@ const PostItem = ({
             {comments.length > 0 && comments.length}
           </span>
         </Link>
-        {user === userId && (
-          <button type="button" className="btn btn-danger">
-            <i className="fas fa-times" />
+        {user === userId && ( 
+          <button type="button" className="btn btn-danger" onClick={() => deletePost(_id)}>
+            Delete Post {'  '} <i className="fas fa-times" />
           </button>
         )}
       </div>
@@ -64,4 +65,4 @@ const mapStateToProps = state => ({
   userId: state.auth.userId
 });
 
-export default connect(mapStateToProps, { likeOrUnlike })(PostItem);
+export default connect(mapStateToProps, { likeOrUnlike, deletePost })(PostItem);
