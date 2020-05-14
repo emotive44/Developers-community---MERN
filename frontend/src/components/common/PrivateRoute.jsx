@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   <Route 
     {...rest}
-    render={() => !isAuth 
-      ? <Redirect to='login' />
-      : <Component />
+    render={(props) => !isAuth 
+      ? <Redirect to='login'/>
+      : <Component {...props}/>
     }
   />
 )

@@ -25,7 +25,7 @@ const PostItem = ({
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <Link to={`profile/${user}`}>
+        <Link to={`profiles/${user}`}>
           <img
             className="round-img"
             src={avatar}
@@ -46,7 +46,7 @@ const PostItem = ({
         <button type="button" className="btn btn-light" onClick={() => likeOrUnlike(_id, 'unlike')}>
           <i className="fas fa-thumbs-down" />
         </button>
-        <Link to={`post/${_id}`} className="btn btn-primary">
+        <Link to={`posts/${_id}`} className="btn btn-primary">
           Discussion {comments.length > 0 && 
             <span className='comment-count'>
               {comments.length}

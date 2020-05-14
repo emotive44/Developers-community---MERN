@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { setAlert } from './alert';
 import { 
+  GET_POST,
   GET_POSTS, 
   POST_ERROR, 
   UPDATE_LIKES, 
@@ -82,6 +83,22 @@ export const createPost = (formData) => async dispatch => {
     dispatch(setAlert('You create your post successfully', 'success'));
   } catch (err) {
     dispatch(setAlert(err.response.data.msg, 'danger'));
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText }
+    })
+  }
+}
+
+export const getPost = (postId) => async dispatch => {
+  try {
+    const res = await axios.get('http://localhost:5000/api/posts/' + postId);
+    dispatch({
+      type: GET_POST,
+      payload: res.data.post
+    })
+  } catch (err) {
+    dispatch(setAlert(err.response.statusText, 'danger'));
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText }

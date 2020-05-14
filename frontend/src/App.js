@@ -21,6 +21,7 @@ import AddEducation from './components/profile-forms/AddEducation';
 import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 
 
 if(localStorage.token) {
@@ -42,9 +43,10 @@ const App = () => {
           <Switch>
             <Route path='/login' component={Login}/>
             <Route path='/register' component={Register}/>
-            <Route path='/profiles' component={Profiles}/>
-            <Route path='/profile/:profileId' component={Profile}/>
-            <PrivateRoute path='/posts' component={Posts}/>
+            <Route exact path='/profiles' component={Profiles}/>
+            <Route path='/profiles/:profileId' component={Profile}/>
+            <PrivateRoute exact path='/posts' component={Posts}/>
+            <PrivateRoute path='/posts/:postId' component={Post}/>
             <PrivateRoute path='/dashboard' component={Dashboard}/>
             <PrivateRoute path='/create-profile' component={() => <CreateOrEditProfile types='Create'/>}/>
             <PrivateRoute path='/edit-profile' component={() => <CreateOrEditProfile types='Edit'/>}/>
