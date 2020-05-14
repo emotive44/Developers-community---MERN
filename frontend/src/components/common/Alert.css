@@ -1,10 +1,13 @@
 .alert {
   padding: 0.8rem;
-  margin: 1rem 0;
   opacity: 0.9;
   background: var(--light-color);
   color: #333;
   animation: cssAnimation 5s forwards;
+  z-index: 2;
+  position: fixed;
+  width: 40%;
+  top: 10%;
 }
 
 @keyframes cssAnimation {

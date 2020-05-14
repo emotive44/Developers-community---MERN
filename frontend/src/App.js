@@ -22,6 +22,7 @@ import Profiles from './components/profiles/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
 import Post from './components/post/Post';
+import NotFound from './components/common/NotFound';
 
 
 if(localStorage.token) {
@@ -36,24 +37,27 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
-        <Route exact path='/' component={Landing}/>
         <NavBar />
-        <section className="container">
-          <Alert />
-          <Switch>
-            <Route path='/login' component={Login}/>
-            <Route path='/register' component={Register}/>
-            <Route exact path='/profiles' component={Profiles}/>
-            <Route path='/profiles/:profileId' component={Profile}/>
-            <PrivateRoute exact path='/posts' component={Posts}/>
-            <PrivateRoute path='/posts/:postId' component={Post}/>
-            <PrivateRoute path='/dashboard' component={Dashboard}/>
-            <PrivateRoute path='/create-profile' component={() => <CreateOrEditProfile types='Create'/>}/>
-            <PrivateRoute path='/edit-profile' component={() => <CreateOrEditProfile types='Edit'/>}/>
-            <PrivateRoute path='/add-experience' component={AddExperience}/>
-            <PrivateRoute path='/add-education' component={AddEducation}/>
-          </Switch>
-        </section>
+        <Alert />
+        <Switch>
+          <Route exact path='/' component={Landing}/>
+          <section className="container">
+            <Switch>
+              <Route path='/login' component={Login}/>
+              <Route path='/register' component={Register}/>
+              <Route exact path='/profiles' component={Profiles}/>
+              <Route path='/profiles/:profileId' component={Profile}/>
+              <PrivateRoute exact path='/posts' component={Posts}/>
+              <PrivateRoute path='/posts/:postId' component={Post}/>
+              <PrivateRoute path='/dashboard' component={Dashboard}/>
+              <PrivateRoute path='/create-profile' component={() => <CreateOrEditProfile types='Create'/>}/>
+              <PrivateRoute path='/edit-profile' component={() => <CreateOrEditProfile types='Edit'/>}/>
+              <PrivateRoute path='/add-experience' component={AddExperience}/>
+              <PrivateRoute path='/add-education' component={AddEducation}/>
+              <Route component={NotFound}/>
+            </Switch>
+          </section>
+        </Switch>
       </Router>
     </Provider>
   );
