@@ -25,14 +25,14 @@ const PostItem = ({
   return (
     <div className="post bg-white p-1 my-1">
       <div>
-        <a href="profile.html">
+        <Link to={`profile/${user}`}>
           <img
             className="round-img"
             src={avatar}
             alt=""
           />
           <h4>{name}</h4>
-        </a>
+        </Link>
       </div>
       <div>
         <p className="my-1">{text}</p>
@@ -47,9 +47,11 @@ const PostItem = ({
           <i className="fas fa-thumbs-down" />
         </button>
         <Link to={`post/${_id}`} className="btn btn-primary">
-          Discussion <span className='comment-count'>
-            {comments.length > 0 && comments.length}
-          </span>
+          Discussion {comments.length > 0 && 
+            <span className='comment-count'>
+              {comments.length}
+            </span>
+          }
         </Link>
         {user === userId && ( 
           <button type="button" className="btn btn-danger" onClick={() => deletePost(_id)}>

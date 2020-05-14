@@ -28,3 +28,8 @@
   font-size: 0.8rem;
   margin-bottom: 0.5rem;
 }
+
+.post-form .post-form-header {
+  background: var(--primary-color);
+  padding: 0.5rem;
+}
