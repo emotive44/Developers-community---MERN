@@ -201,9 +201,9 @@ const createComment = async (req, res, next) => {
   const comment = {
     user: req.userId,
     text: req.body.text,
-    name: req.body.name,
+    name: user.name,
     date: req.body.date,
-    avatar: req.body.avatar,
+    avatar: user.avatar,
   }
 
   try {
@@ -256,7 +256,7 @@ const deleteComment = async (req, res, next) => {
     next(new Error('Detele comment failed, please try again'));
   }
 
-  res.status(200).json({ msg: 'You delete comment' });
+  res.status(200).json(post.comments);
 }
 
 module.exports = {
