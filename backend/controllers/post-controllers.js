@@ -213,7 +213,7 @@ const createComment = async (req, res, next) => {
     next(new Error('Create comment failed, please try again'));
   }
 
-  res.status(201).json({ msg: 'You create a comment.'});
+  res.status(201).json(post.comments);
 }
 
 const deleteComment = async (req, res, next) => {

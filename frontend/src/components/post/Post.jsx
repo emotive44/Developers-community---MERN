@@ -6,6 +6,7 @@ import { getPost } from '../../actions/post';
 
 import Spinner from '../common/Spinner';
 import PostItem from '../posts/PostItem';
+import CommentForm from './CommentForm';
 
 
 const Post = ({ getPost, post: { post, loading}, match }) => {
@@ -18,6 +19,7 @@ const Post = ({ getPost, post: { post, loading}, match }) => {
       {loading && <Spinner />}
       <Link to='/posts' className='btn'>Go back to posts</Link>
       {post && <PostItem post={post}/>}
+      {post && <CommentForm postId={post._id}/>}
     </Fragment>
   );
 }
